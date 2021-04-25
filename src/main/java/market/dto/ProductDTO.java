@@ -2,8 +2,6 @@ package market.dto;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -12,8 +10,8 @@ import java.util.Objects;
 public class ProductDTO extends RepresentationModel<ProductDTO> {
 
 	private Long productId;
-
-	private String distillery;
+	private String manufacturer;
+	private String category;
 
 	@NotEmpty
 	@Pattern(regexp = "^[^#$%^&*()']*$")
@@ -21,18 +19,6 @@ public class ProductDTO extends RepresentationModel<ProductDTO> {
 
 	@NotNull
 	private Double price;
-
-	@Max(value = 2000)
-	private Integer age;
-
-	@NotNull
-	private Integer volume;
-
-	@NotNull
-	@Min(value = 1)
-	@Max(value = 96)
-	private Float alcohol;
-
 	private String description;
 	private boolean available;
 
@@ -44,13 +30,17 @@ public class ProductDTO extends RepresentationModel<ProductDTO> {
 		this.productId = productId;
 	}
 
-	public String getDistillery() {
-		return distillery;
+	public String getManufacturer() {
+		return manufacturer;
 	}
 
-	public void setDistillery(String distillery) {
-		this.distillery = distillery;
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
 	}
+
+	public String getCategory() {return category;}
+
+	public void setCategory(String category) {this.category = category;	}
 
 	public String getName() {
 		return name;
@@ -66,30 +56,6 @@ public class ProductDTO extends RepresentationModel<ProductDTO> {
 
 	public void setPrice(@NotNull Double price) {
 		this.price = price;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Integer getVolume() {
-		return volume;
-	}
-
-	public void setVolume(Integer volume) {
-		this.volume = volume;
-	}
-
-	public Float getAlcohol() {
-		return alcohol;
-	}
-
-	public void setAlcohol(Float alcohol) {
-		this.alcohol = alcohol;
 	}
 
 	public String getDescription() {
@@ -115,32 +81,16 @@ public class ProductDTO extends RepresentationModel<ProductDTO> {
 		ProductDTO that = (ProductDTO) o;
 		return available == that.available &&
 			Objects.equals(productId, that.productId) &&
-			Objects.equals(distillery, that.distillery) &&
+			Objects.equals(manufacturer, that.manufacturer) &&
 			Objects.equals(name, that.name) &&
 			Objects.equals(price, that.price) &&
-			Objects.equals(age, that.age) &&
-			Objects.equals(volume, that.volume) &&
-			Objects.equals(alcohol, that.alcohol) &&
+			Objects.equals(category, that.category) &&
 			Objects.equals(description, that.description);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(productId, distillery, name, price, age, volume, alcohol, description, available);
+		return Objects.hash(productId, manufacturer, name, price, category, description, available);
 	}
 
-	@Override
-	public String toString() {
-		return "ProductDTO{" +
-			"productId=" + productId +
-			", distillery='" + distillery + '\'' +
-			", name='" + name + '\'' +
-			", price=" + price +
-			", age=" + age +
-			", volume=" + volume +
-			", alcohol=" + alcohol +
-			", description='" + description + '\'' +
-			", available=" + available +
-			'}';
-	}
 }

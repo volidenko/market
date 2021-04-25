@@ -5,7 +5,6 @@ import market.domain.Category;
 import market.service.CategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public List<Category> findAll() {
 		return categoryDAO.findAll().stream()
-			.sorted(Comparator.comparing(Category::getName))
+			.sorted(Comparator.comparing(Category::getTitle))
 			.collect(Collectors.toList());
 	}
 
@@ -35,8 +34,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Category findByName(String categoryName) {
-		return categoryDAO.findByName(categoryName).orElse(null);
+	public Category findByTitle(String categoryTitle) {
+		return categoryDAO.findByTitle(categoryTitle).orElse(null);
 	}
 
 	@Transactional

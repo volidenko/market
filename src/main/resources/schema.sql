@@ -49,19 +49,26 @@ CREATE TABLE ordered_product (
     quantity integer
 );
 
-DROP TABLE IF EXISTS product;
-CREATE TABLE product (
-    id bigint auto_increment NOT NULL,
-    name character varying(45),
-    price double precision,
-    description character varying(1000),
-    available boolean
-);
-
 DROP TABLE IF EXISTS category;
 CREATE TABLE category (
     id bigint auto_increment NOT NULL,
-    name character varying(20) NOT NULL,
+    title character varying(20) NOT NULL
+);
+
+DROP TABLE IF EXISTS manufacturer;
+CREATE TABLE manufacturer (
+    id bigint auto_increment NOT NULL,
+    title character varying(25) NOT NULL
+);
+
+DROP TABLE IF EXISTS product;
+CREATE TABLE product (
+    id bigint auto_increment NOT NULL,
+    name character varying(50),
+    price double precision,
+    available boolean,
+    category_id bigint,
+    manufacturer_id bigint,
     description character varying(1000)
 );
 

@@ -30,14 +30,14 @@
 
 	<div class="row" th:each="product : ${page.content}">
 		<div class="col-sm-3 col-xs-3 product-unit">
-			<!--<object data="${pageContext.request.contextPath}${initParam.productImagePath}${product.distillery.title}/${product.name}.jpg"
+			<!--<object data="${pageContext.request.contextPath}${initParam.productImagePath}${product.manufacturer.title}/${product.name}.jpg"
 					type="image/jpg" class="img-responsive">
 				<img src="${pageContext.request.contextPath}${initParam.productImagePath}default-whisky.jpg"
 					 class="img-responsive" alt=""/>
 				</object>-->
 			<img alt=""
 				 class="img-responsive"
-				 th:src="@{'/img/products/' + ${product.distillery} + '/' + ${product.name} + '.jpg'}" width="90%"/>
+				 th:src="@{'/img/products/' + ${product.manufacturer} + '/' + ${product.name} + '.jpg'}" width="90%"/>
 		</div>
 		<div class="col-sm-9 col-xs-9 product-unit">
 			<div class="pull-right price-block">
@@ -57,7 +57,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="product-item product-label" th:text="${product.distillery} + ' ' + ${product.name}"></div>
+			<div class="product-item product-label" th:text="${product.manufacturer} + ' ' + ${product.name}"></div>
 			<i th:text="${product.alcohol} + '% об. / ' + ${product.volume} + ' мл.'"></i>
 			<div class="product-description" th:text="${product.description}"></div>
 		</div>
@@ -92,7 +92,7 @@
 							<code>region</code> связаны друг с другом через таблицу
 							<code>distilleries</code>, для корректной сортировки полного списка продуктов отдельного региона
 							используется JPA-запрос:
-							<pre>@Query(value = "SELECT p FROM Product p WHERE p.distillery IN "<br>        + "(SELECT d FROM Distillery d WHERE d.region = :region)")</pre>
+							<pre>@Query(value = "SELECT p FROM Product p WHERE p.manufacturer IN "<br>        + "(SELECT d FROM Distillery d WHERE d.region = :region)")</pre>
 						</li>
 					</ol>
 				</div>

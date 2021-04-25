@@ -56,9 +56,7 @@ public class CartController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String getCart(
-		Principal principal, HttpServletRequest request, Model model,
-		@ModelAttribute(value = "cart") CartDTO cartDto)
+	public String getCart(Principal principal, HttpServletRequest request, Model model, @ModelAttribute(value = "cart") CartDTO cartDto)
 	{
 		if (isAuthorized(principal)) {
 			Cart cart = cartService.getCartOrCreate(principal.getName());
@@ -102,7 +100,7 @@ public class CartController {
 		return "redirect:/" + CART_BASE;
 	}
 
-	//--------------------------------------------- Adding item to cart
+	// Adding item to cart
 
 	@RequestMapping(method = RequestMethod.POST)
 	public String updateCartByForm(
@@ -180,7 +178,7 @@ public class CartController {
 		return cartDto;
 	}
 
-	//---------------------------------------------- Setting delivery option
+	//Setting delivery option
 
 	/**
 	 * Setting delivery option via AJAX.

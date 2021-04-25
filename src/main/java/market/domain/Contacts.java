@@ -41,7 +41,7 @@ public class Contacts implements Serializable {
 		this.userAccount = userAccount;
 		this.phone = phone;
 		this.address = address;
-		this.cityAndRegion = "13";
+		this.cityAndRegion = "";
 	}
 
 	public Long getId() {

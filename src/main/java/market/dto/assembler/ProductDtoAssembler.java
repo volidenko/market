@@ -22,12 +22,9 @@ public class ProductDtoAssembler extends RepresentationModelAssemblerSupport<Pro
 	public ProductDTO toModel(Product product) {
 		ProductDTO dto = instantiateModel(product);
 		dto.setProductId(product.getId());
-		dto.setDistillery(product.getDistillery() == null ? null : product.getDistillery().getTitle());
+		dto.setManufacturer(product.getManufacturer() == null ? null : product.getManufacturer().getTitle());
 		dto.setName(product.getName());
-		dto.setAge(product.getAge());
-		dto.setAlcohol(product.getAlcohol());
 		dto.setPrice(product.getPrice());
-		dto.setVolume(product.getVolume());
 		dto.setDescription(product.getDescription());
 		dto.setAvailable(product.isAvailable());
 		return dto;
@@ -53,10 +50,7 @@ public class ProductDtoAssembler extends RepresentationModelAssemblerSupport<Pro
 	public Product dtoDomain(ProductDTO dto) {
 		return new Product.Builder()
 			.setName(dto.getName())
-			.setAge(dto.getAge())
-			.setAlcohol(dto.getAlcohol())
 			.setPrice(dto.getPrice())
-			.setVolume(dto.getVolume())
 			.setDescription(dto.getDescription())
 			.setAvailable(dto.isAvailable())
 			.build();

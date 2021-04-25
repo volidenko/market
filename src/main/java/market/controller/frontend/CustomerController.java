@@ -110,7 +110,7 @@ public class CustomerController {
 		return principal != null;
 	}
 
-	//----------------------------------------- Registering new account
+	//Registering new account
 
 	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public String getRegistrationPage(Model model) {

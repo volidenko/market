@@ -30,7 +30,7 @@
 
 			<tr th:each="product : ${page.content}">
 				<td th:text="${product.productId}"></td>
-				<td th:text="${product.distillery + ' ' + product.name}"></td>
+				<td th:text="${product.manufacturer + ' ' + product.name}"></td>
 				<td th:text="${product.volume}"></td>
 				<td th:text="${product.alcohol}"></td>
 				<td th:text="${product.price}"></td>

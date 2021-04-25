@@ -27,9 +27,15 @@ public class Product implements Serializable {
 	@Column(name = "id", insertable = false, updatable = false, nullable = false)
 	private Long id;
 
+
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "distillery_id", nullable = false)
-	private Distillery distillery;
+	@JoinColumn(name = "category_id", nullable = false)
+	private Category category;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "manufacturer_id", nullable = false)
+	private Manufacturer manufacturer;
 
 	@Column(name = "name", nullable = false)
 	@NotEmpty
@@ -42,20 +48,6 @@ public class Product implements Serializable {
 
 	@Column(name = "description")
 	private String description;
-
-	@Column(name = "volume")
-	@NotNull
-	private Integer volume;
-
-	@Column(name = "alcohol")
-	@NotNull
-	@Min(value = 1)
-	@Max(value = 96)
-	private Float alcohol;
-
-	@Column(name = "age")
-	@Max(value = 2000)
-	private Integer age;
 
 	@Column(name = "available", nullable = false)
 	private boolean available = true;
@@ -91,37 +83,16 @@ public class Product implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public Category getCategory() {return category;	}
 
-	public Integer getVolume() {
-		return volume;
+	public void setCategory(Category category) {this.category = category;}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
 	}
 
-	public void setVolume(Integer volume) {
-		this.volume = volume;
-	}
-
-	public Float getAlcohol() {
-		return alcohol;
-	}
-
-	public void setAlcohol(Float alcohol) {
-		this.alcohol = alcohol;
-	}
-
-	public Integer getAge() {
-		return age;
-	}
-
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
-	public Distillery getDistillery() {
-		return distillery;
-	}
-
-	public void setDistillery(Distillery distillery) {
-		this.distillery = distillery;
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 
 	public boolean isAvailable() {
@@ -139,7 +110,7 @@ public class Product implements Serializable {
 		Product product = (Product) o;
 		return id == product.id &&
 			available == product.available &&
-			Objects.equals(distillery, product.distillery) &&
+			Objects.equals(manufacturer, product.manufacturer) &&
 			Objects.equals(name, product.name) &&
 			Objects.equals(price, product.price) &&
 			Objects.equals(description, product.description) &&
@@ -150,12 +121,12 @@ public class Product implements Serializable {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, distillery, name, price, description, volume, alcohol, age, available);
+		return Objects.hash(id, manufacturer, name, price, description, volume, alcohol, age, available);
 	}
 
 	public static class Builder {
 		private Long id;
-		private Distillery distillery;
+		private Manufacturer manufacturer;
 		private String name;
 		private Double price;
 		private String description;
@@ -169,7 +140,7 @@ public class Product implements Serializable {
 
 		public Builder(Product product) {
 			id = product.id;
-			distillery = product.distillery;
+			manufacturer = product.manufacturer;
 			name = product.name;
 			price = product.price;
 			description = product.description;
@@ -182,7 +153,7 @@ public class Product implements Serializable {
 		public Product build() {
 			Product product = new Product();
 			product.id = id;
-			product.distillery = distillery;
+			product.manufacturer = manufacturer;
 			product.name = name;
 			product.price = price;
 			product.description = description;
@@ -198,8 +169,8 @@ public class Product implements Serializable {
 			return this;
 		}
 
-		public Builder setDistillery(Distillery distillery) {
-			this.distillery = distillery;
+		public Builder setDistillery(Manufacturer manufacturer) {
+			this.manufacturer = manufacturer;
 			return this;
 		}
 

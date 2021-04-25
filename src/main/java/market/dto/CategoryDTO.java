@@ -7,10 +7,7 @@ import java.util.Objects;
 public class CategoryDTO extends RepresentationModel<CategoryDTO> {
 
 	private Long id;
-	private String name;
-	private String subtitle;
-	private String description;
-	private String color;
+	private String title;
 
 	public Long getId() {
 		return id;
@@ -20,36 +17,12 @@ public class CategoryDTO extends RepresentationModel<CategoryDTO> {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getSubtitle() {
-		return subtitle;
-	}
-
-	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override
@@ -58,25 +31,19 @@ public class CategoryDTO extends RepresentationModel<CategoryDTO> {
 		if (o == null || getClass() != o.getClass()) return false;
 		CategoryDTO categoryDTO = (CategoryDTO) o;
 		return Objects.equals(id, categoryDTO.id) &&
-			Objects.equals(name, categoryDTO.name) &&
-			Objects.equals(subtitle, categoryDTO.subtitle) &&
-			Objects.equals(description, categoryDTO.description) &&
-			Objects.equals(color, categoryDTO.color);
+			Objects.equals(title, categoryDTO.title);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, subtitle, description, color);
+		return Objects.hash(id, title);
 	}
 
 	@Override
 	public String toString() {
 		return "RegionDTO{" +
 			"id=" + id +
-			", name='" + name + '\'' +
-			", subtitle='" + subtitle + '\'' +
-			", description='" + description + '\'' +
-			", color='" + color + '\'' +
+			", title='" + title + '\'' +
 			'}';
 	}
 }

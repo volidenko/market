@@ -21,9 +21,9 @@
 				<li>
 					<a th:href="@{${urlBuilder.replaceQueryParam('dist', 0).build().toUriString()}}">все</a>
 				</li>
-				<li style="width:auto;" th:each="distillery : ${distilleries}">
-					<a th:href="@{${urlBuilder.replaceQueryParam('dist', distillery.id).replaceQueryParam('page', 1).build().toUriString()}}"
-					   th:text="${distillery.title}"></a>
+				<li style="width:auto;" th:each="manufacturer : ${distilleries}">
+					<a th:href="@{${urlBuilder.replaceQueryParam('dist', manufacturer.id).replaceQueryParam('page', 1).build().toUriString()}}"
+					   th:text="${manufacturer.title}"></a>
 				</li>
 			</ul>
 		</div>

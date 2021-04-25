@@ -11,12 +11,12 @@
 	<script src="@{/resources/js/jquery-validate.min.js}" type="text/javascript"></script>
 
 	<div class="form-group">
-		<label class="col-sm-3 control-label" for="distillery">
+		<label class="col-sm-3 control-label" for="manufacturer">
 			винокурня
 		</label>
 		<div class="col-sm-5">
 			<div class="btn-group">
-				<select class="form-control" id="distillery" name="distillery" th:field="*{distillery}">
+				<select class="form-control" id="manufacturer" name="manufacturer" th:field="*{manufacturer}">
 					<option th:each="dist : ${distilleries}" th:text="${dist.title}" th:value="${dist.title}"/>
 				</select>
 			</div>

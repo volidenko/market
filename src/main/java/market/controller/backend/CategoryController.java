@@ -46,52 +46,51 @@ public class CategoryController {
 	// Creating new category
 
 	@RequestMapping(method = RequestMethod.GET, value = "/new")
-	public String newRegion(Model model) {
-		model.addAttribute("region", categoryDTOAssembler.toModel(new Category()));
+	public String newCategory(Model model) {
+		model.addAttribute("category", categoryDTOAssembler.toModel(new Category()));
 		return CATEGORIES_NEW;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/new")
-	public String postRegion(
+	public String postCategory(
 			@Valid CategoryDTO categoryDto, BindingResult bindingResult
 	) {
 		if (bindingResult.hasErrors())
 			return CATEGORIES_NEW;
-
-		Category newRegion = categoryDTOAssembler.toDomain(categoryDto);
-		categoryService.create(newRegion);
+		Category newCategory = categoryDTOAssembler.toDomain(categoryDto);
+		categoryService.create(newCategory);
 		return "redirect:/" + CATEGORIES_BASE;
 	}
 
 	// Updating category
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{regionId}/edit")
-	public String editRegion(
-		@PathVariable long regionId, Model model
+	@RequestMapping(method = RequestMethod.GET, value = "/{categoryId}/edit")
+	public String editCategory(
+		@PathVariable long categoryId, Model model
 	) {
-		Category region = categoryService.findOne(regionId);
-		model.addAttribute("region", categoryDTOAssembler.toModel(region));
+		Category category = categoryService.findOne(categoryId);
+		model.addAttribute("category", categoryDTOAssembler.toModel(category));
 		return CATEGORIES_EDIT;
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/{regionId}/edit")
-	public String putRegion(
-			@PathVariable long regionId,
+	@RequestMapping(method = RequestMethod.POST, value = "/{categoryId}/edit")
+	public String putCategory(
+			@PathVariable long categoryId,
 			@Valid CategoryDTO categoryDto, BindingResult bindingResult
 	) {
 		if (bindingResult.hasErrors())
 			return CATEGORIES_EDIT;
 
-		Category changedRegion = categoryDTOAssembler.toDomain(categoryDto);
-		categoryService.update(regionId, changedRegion);
+		Category changedCategory = categoryDTOAssembler.toDomain(categoryDto);
+		categoryService.update(categoryId, changedCategory);
 		return "redirect:/" + CATEGORIES_BASE;
 	}
 
 	// Deleting category
 
-	@RequestMapping(method = RequestMethod.POST, value = "/{regionId}/delete")
-	public String deleteRegion(@PathVariable long regionId) {
-		categoryService.delete(regionId);
+	@RequestMapping(method = RequestMethod.POST, value = "/{categoryId}/delete")
+	public String deleteCategory(@PathVariable long categoryId) {
+		categoryService.delete(categoryId);
 		return "redirect:/" + CATEGORIES_BASE;
 	}
 }

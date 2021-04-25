@@ -19,7 +19,7 @@ public interface CategoryService {
 	/**
 	 * @return категорию с указанным именем
 	 */
-	Category findByName(String categoryName);
+	Category findByTitle(String categoryTitle);
 
 	/**
 	 * Создание новой категории.

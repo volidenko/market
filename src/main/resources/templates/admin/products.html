@@ -36,10 +36,10 @@
 				th:with="desc=${product.description},shortDesc=${desc.length() > 100 ? #strings.substring(desc, 0, 60) : desc}">
 
 				<td th:text="${product.productId}"></td>
-				<td th:text="${product.distillery}"></td>
+				<td th:text="${product.manufacturer}"></td>
 				<td th:text="${product.name}"></td>
 				<td th:text="${product.age}"></td>
-				<td th:text="${regionByDistillery[product.distillery]}"></td>
+				<td th:text="${regionByDistillery[product.manufacturer]}"></td>
 
 				<td th:text="${product.volume}"></td>
 				<td th:text="${product.alcohol}"></td>

@@ -17,10 +17,7 @@ public class CategoryDtoAssembler extends RepresentationModelAssemblerSupport<Ca
 	public CategoryDTO toModel(Category category) {
 		CategoryDTO dto = instantiateModel(category);
 		dto.setId(category.getId());
-		dto.setName(category.getName());
-		dto.setSubtitle(category.getSubtitle());
-		dto.setColor(category.getColor());
-		dto.setDescription(category.getDescription());
+		dto.setTitle(category.getTitle());
 		return dto;
 	}
 
@@ -31,10 +28,7 @@ public class CategoryDtoAssembler extends RepresentationModelAssemblerSupport<Ca
 	public Category toDomain(CategoryDTO dto) {
 		return new Category.Builder()
 			.setId(dto.getId())
-			.setName(dto.getName())
-			.setSubtitle(dto.getSubtitle())
-			.setColor(dto.getColor())
-			.setDescription(dto.getDescription())
+			.setTitle(dto.getTitle())
 			.build();
 	}
 }

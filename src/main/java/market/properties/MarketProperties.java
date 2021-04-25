@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 public class MarketProperties {
 	private final int deliveryCost;
 
-	public MarketProperties(@Value("${deliveryCost}") int deliveryCost) {
+	public MarketProperties(@Value("80") int deliveryCost) {
 		this.deliveryCost = deliveryCost;
 	}
 

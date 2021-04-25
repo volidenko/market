@@ -1,11 +1,11 @@
 package market.service.impl;
 
 import market.dao.ProductDAO;
-import market.domain.Distillery;
+import market.domain.Manufacturer;
 import market.domain.Product;
 import market.domain.Category;
 import market.exception.UnknownEntityException;
-import market.service.DistilleryService;
+import market.service.ManufacturerService;
 import market.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,11 +22,11 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
 
 	private final ProductDAO productDAO;
-	private final DistilleryService distilleryService;
+	private final ManufacturerService manufacturerService;
 
-	public ProductServiceImpl(ProductDAO productDAO, DistilleryService distilleryService) {
+	public ProductServiceImpl(ProductDAO productDAO, ManufacturerService manufacturerService) {
 		this.productDAO = productDAO;
-		this.distilleryService = distilleryService;
+		this.manufacturerService = manufacturerService;
 	}
 
 	@Transactional(readOnly = true)
@@ -45,8 +45,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Page<Product> findByDistillery(Distillery distillery, PageRequest request) {
-		return productDAO.findByDistilleryOrderByName(distillery, request);
+	public Page<Product> findByDistillery(Manufacturer manufacturer, PageRequest request) {
+		return productDAO.findByDistilleryOrderByName(manufacturer, request);
 	}
 
 	@Transactional(readOnly = true)
@@ -96,9 +96,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	private void saveInternal(Product changed, String distilleryTitle, boolean available) {
-		Distillery distillery = distilleryService.findByTitle(distilleryTitle);
-		if (distillery != null) {
-			changed.setDistillery(distillery);
+		Manufacturer manufacturer = manufacturerService.findByTitle(distilleryTitle);
+		if (manufacturer != null) {
+			changed.setManufacturer(manufacturer);
 			changed.setAvailable(available);
 			productDAO.save(changed);
 		}

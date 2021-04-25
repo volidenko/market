@@ -38,7 +38,7 @@
 
 					<tr th:each="cartItem : ${session.cart.cartItems}"
 						th:with="product=${productsById[cartItem.productId]}">
-						<td th:text="${product.distillery + ' ' + product.name}"></td>
+						<td th:text="${product.manufacturer + ' ' + product.name}"></td>
 						<td th:text="${product.price} + '&nbsp;руб.'"></td>
 						<td th:text="${cartItem.quantity}"></td>
 						<td th:text="${(product.price * cartItem.quantity) + '&nbsp;руб.'}"></td>

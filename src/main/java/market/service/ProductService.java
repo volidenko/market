@@ -1,6 +1,6 @@
 package market.service;
 
-import market.domain.Distillery;
+import market.domain.Manufacturer;
 import market.domain.Product;
 import market.domain.Category;
 import market.exception.UnknownEntityException;
@@ -26,7 +26,7 @@ public interface ProductService {
 	/**
 	 * @return all the products of the specified distillery, sorted by title
 	 */
-	Page<Product> findByDistillery(Distillery distillery, PageRequest request);
+	Page<Product> findByDistillery(Manufacturer manufacturer, PageRequest request);
 
 	/**
 	 * @return all the products of the specified region, sorted by title

@@ -1,7 +1,6 @@
 package market.dto;
 
 import org.springframework.hateoas.RepresentationModel;
-
 import java.util.Date;
 import java.util.Objects;
 

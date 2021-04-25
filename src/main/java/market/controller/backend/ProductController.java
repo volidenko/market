@@ -1,14 +1,14 @@
 package market.controller.backend;
 
-import market.domain.Distillery;
+import market.domain.Manufacturer;
 import market.domain.Product;
-import market.dto.DistilleryDTO;
+import market.dto.ManufacturerDTO;
 import market.dto.ProductDTO;
-import market.dto.assembler.DistilleryDtoAssembler;
+import market.dto.assembler.ManufacturerDtoAssembler;
 import market.dto.assembler.ProductDtoAssembler;
 import market.exception.UnknownEntityException;
 import market.properties.PaginationProperties;
-import market.service.DistilleryService;
+import market.service.ManufacturerService;
 import market.service.ProductService;
 import market.sorting.ISorter;
 import market.sorting.ProductBackendSorting;
@@ -45,16 +45,16 @@ public class ProductController {
 	private static final String PRODUCTS_NEW = PRODUCTS_BASE + "/new";
 
 	private final ProductService productService;
-	private final DistilleryService distilleryService;
+	private final ManufacturerService manufacturerService;
 	private final ISorter<ProductDTO> productBackendSorting;
 	private final ProductDtoAssembler productDtoAssembler = new ProductDtoAssembler();
-	private final DistilleryDtoAssembler distilleryDtoAssembler = new DistilleryDtoAssembler();
+	private final ManufacturerDtoAssembler manufacturerDtoAssembler = new ManufacturerDtoAssembler();
 
-	public ProductController(ProductService productService, DistilleryService distilleryService,
+	public ProductController(ProductService productService, ManufacturerService manufacturerService,
 		PaginationProperties paginationProperties)
 	{
 		this.productService = productService;
-		this.distilleryService = distilleryService;
+		this.manufacturerService = manufacturerService;
 		productBackendSorting = new ProductBackendSorting(paginationProperties.getBackendProduct());
 	}
 
@@ -69,31 +69,31 @@ public class ProductController {
 		if (distilleryId == 0) {
 			pagedProducts = productService.findAll(request);
 		} else {
-			Distillery distillery = distilleryService.findById(distilleryId);
-			pagedProducts = productService.findByDistillery(distillery, request);
-			model.addAttribute("currentDistilleryTitle", distillery.getTitle());
+			Manufacturer manufacturer = manufacturerService.findById(distilleryId);
+			pagedProducts = productService.findByDistillery(manufacturer, request);
+			model.addAttribute("currentDistilleryTitle", manufacturer.getTitle());
 		}
 		productBackendSorting.prepareModel(model, pagedProducts.map(productDtoAssembler::toModel));
 
-		List<Distillery> distilleries = distilleryService.findAll();
-		List<DistilleryDTO> distilleriesDto = distilleries.stream()
-			.map(distilleryDtoAssembler::toModel)
+		List<Manufacturer> distilleries = manufacturerService.findAll();
+		List<ManufacturerDTO> distilleriesDto = distilleries.stream()
+			.map(manufacturerDtoAssembler::toModel)
 			.collect(toList());
 		model.addAttribute("distilleries", distilleriesDto);
 
 		Map<String, String> regionByDistillery = distilleries.stream()
-			.collect(toMap(Distillery::getTitle, d -> d.getCategory().getName()));
+			.collect(toMap(Manufacturer::getTitle, d -> d.getCategory().getName()));
 		model.addAttribute("regionByDistillery", regionByDistillery);
 
 		return PRODUCTS_BASE;
 	}
 
-	//------------------------------------------------------- Creating new product
+	//Creating new product
 
 	@RequestMapping(method = RequestMethod.GET, value = "/new")
 	public String newProduct(Model model) {
-		List<DistilleryDTO> distilleriesDto = distilleryService.findAll().stream()
-			.map(distilleryDtoAssembler::toModel)
+		List<ManufacturerDTO> distilleriesDto = manufacturerService.findAll().stream()
+			.map(manufacturerDtoAssembler::toModel)
 			.collect(toList());
 		model.addAttribute("distilleries", distilleriesDto);
 		model.addAttribute("product", productDtoAssembler.toModel(new Product()));
@@ -108,11 +108,11 @@ public class ProductController {
 			return "redirect:/" + PRODUCTS_NEW;
 
 		Product newProduct = productDtoAssembler.dtoDomain(product);
-		productService.create(newProduct, product.getDistillery());
+		productService.create(newProduct, product.getManufacturer());
 		return "redirect:/" + PRODUCTS_BASE;
 	}
 
-	//--------------------------------------------------- Updating product
+	// Updating product
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{productId}/edit")
 	public String editProduct(
@@ -122,8 +122,8 @@ public class ProductController {
 		if (!productOptional.isPresent())
 			return "redirect:/" + PRODUCTS_BASE;
 
-		List<DistilleryDTO> distilleriesDto = distilleryService.findAll().stream()
-			.map(distilleryDtoAssembler::toModel)
+		List<ManufacturerDTO> distilleriesDto = manufacturerService.findAll().stream()
+			.map(manufacturerDtoAssembler::toModel)
 			.collect(toList());
 		model.addAttribute("distilleries", distilleriesDto);
 		model.addAttribute("product", productDtoAssembler.toModel(productOptional.get()));
@@ -140,7 +140,7 @@ public class ProductController {
 
 		Product changedProduct = productDtoAssembler.dtoDomain(product);
 		try {
-			productService.update(productId, changedProduct, product.getDistillery());
+			productService.update(productId, changedProduct, product.getManufacturer());
 			return "redirect:/" + PRODUCTS_BASE;
 		} catch (UnknownEntityException e) {
 			log.warn(e.getMessage());
@@ -148,7 +148,7 @@ public class ProductController {
 		}
 	}
 
-	//--------------------------------------------------------- Removing product
+	// Removing product
 
 	@RequestMapping(method = RequestMethod.POST, value = "/{productId}/delete")
 	public String deleteProduct(@PathVariable long productId) {

@@ -20,7 +20,7 @@ public class Category implements Serializable {
 	static {
 		NULL = new Category.Builder()
 			.setId(0L)
-			.setName("null category")
+			.setTitle("null category")
 			.build();
 	}
 
@@ -29,21 +29,10 @@ public class Category implements Serializable {
 	@Column(name = "id", insertable = false, updatable = false, nullable = false)
 	private Long id;
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "title", nullable = false)
 	@NotEmpty
 	@Pattern(regexp = "^[^#$%^&*()']*$")
-	private String name;
-
-	@Column(name = "subtitle")
-	@Pattern(regexp = "^[^#$%^*()']*$")
-	private String subtitle;
-
-	@Column(name = "description")
-	private String description;
-
-	@Column(name = "color")
-	@Pattern(regexp = "^(a-z|A-Z|0-9-)*[^#$%^&*()']*$")
-	private String color;
+	private String title;
 
 	public Long getId() {
 		return id;
@@ -53,37 +42,14 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
-	public String getSubtitle() {
-		return subtitle;
-	}
-
-	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -91,42 +57,30 @@ public class Category implements Serializable {
 		if (o == null || getClass() != o.getClass()) return false;
 		Category category = (Category) o;
 		return Objects.equals(id, category.id) &&
-			Objects.equals(name, category.name) &&
-			Objects.equals(subtitle, category.subtitle) &&
-			Objects.equals(description, category.description) &&
-			Objects.equals(color, category.color);
+			Objects.equals(title, category.title);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, name, subtitle, description, color);
+		return Objects.hash(id, title);
 	}
 
 	public static class Builder {
 		private Long id;
-		private String name;
-		private String subtitle;
-		private String description;
-		private String color;
+		private String title;
 
 		public Builder() {
 		}
 
 		public Builder(Category category) {
 			id = category.id;
-			name = category.name;
-			subtitle = category.subtitle;
-			description = category.description;
-			color = category.color;
+			title = category.title;
 		}
 
 		public Category build() {
 			Category category = new Category();
 			category.id = id;
-			category.name = name;
-			category.subtitle = subtitle;
-			category.description = description;
-			category.color = color;
+			category.title = title;
 			return category;
 		}
 
@@ -135,23 +89,8 @@ public class Category implements Serializable {
 			return this;
 		}
 
-		public Builder setName(String name) {
-			this.name = name;
-			return this;
-		}
-
-		public Builder setSubtitle(String subtitle) {
-			this.subtitle = subtitle;
-			return this;
-		}
-
-		public Builder setDescription(String description) {
-			this.description = description;
-			return this;
-		}
-
-		public Builder setColor(String color) {
-			this.color = color;
+		public Builder setTitle(String title) {
+			this.title = title;
 			return this;
 		}
 	}

@@ -110,7 +110,7 @@
 
 											<th:block th:each="orderedProduct : ${orderedProductsByOrderId[order.id]}">
 												<tr th:with="product=${productsById[orderedProduct.productId]}">
-													<td th:text="${product.distillery + ' ' + product.name}"></td>
+													<td th:text="${product.manufacturer + ' ' + product.name}"></td>
 													<td th:text="${product.price + '&nbsp;руб.'}"></td>
 													<td th:text="${orderedProduct.quantity}"></td>
 													<td th:text="${(orderedProduct.quantity * product.price) + '&nbsp;руб.'}"></td>

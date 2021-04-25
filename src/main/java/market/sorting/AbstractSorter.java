@@ -41,10 +41,10 @@ public abstract class AbstractSorter<T> implements ISorter<T> {
 		directionOptions.put(DIRECTION_DEFAULT.toString(), "по возрастанию");
 		directionOptions.put(Sort.Direction.DESC.toString(), "по убыванию");
 
-		pageSizeOptions.put(2, "2");
 		pageSizeOptions.put(5, "5");
 		pageSizeOptions.put(10, "10");
 		pageSizeOptions.put(20, "20");
+		pageSizeOptions.put(2, "100");
 	}
 
 	//-------------------------------------------------------- Обновление опций
@@ -83,7 +83,7 @@ public abstract class AbstractSorter<T> implements ISorter<T> {
 			getSortBy());
 	}
 
-	//------------------------------------------------------- Подготовка модели
+	// Подготовка модели
 
 	@Override
 	public Model prepareModel(Model model, Page<T> page) {
@@ -137,7 +137,7 @@ public abstract class AbstractSorter<T> implements ISorter<T> {
 		return model;
 	}
 
-	//---------------------------------------------------- Аксессоры и мутаторы
+	//Аксессоры и мутаторы
 
 	public Integer getPageNumber() {
 		return pageNumber;

@@ -1,15 +1,15 @@
 package market.dao;
 
-import market.domain.Distillery;
+import market.domain.Manufacturer;
 import market.domain.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface DistilleryDAO extends CrudRepository<Distillery, Long>, JpaRepository<Distillery, Long> {
+public interface DistilleryDAO extends CrudRepository<Manufacturer, Long>, JpaRepository<Manufacturer, Long> {
 
-	List<Distillery> findByRegionOrderByTitleAsc(Category region);
+	List<Manufacturer> findByRegionOrderByTitleAsc(Category region);
 
-	Distillery findByTitle(String title);
+	Manufacturer findByTitle(String title);
 }

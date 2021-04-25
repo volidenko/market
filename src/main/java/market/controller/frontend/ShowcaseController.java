@@ -1,15 +1,15 @@
 package market.controller.frontend;
 
-import market.domain.Distillery;
+import market.domain.Manufacturer;
 import market.domain.Product;
 import market.domain.Category;
-import market.dto.DistilleryDTO;
+import market.dto.ManufacturerDTO;
 import market.dto.ProductDTO;
 import market.dto.CategoryDTO;
-import market.dto.assembler.DistilleryDtoAssembler;
+import market.dto.assembler.ManufacturerDtoAssembler;
 import market.dto.assembler.ProductDtoAssembler;
 import market.dto.assembler.CategoryDtoAssembler;
-import market.service.DistilleryService;
+import market.service.ManufacturerService;
 import market.service.ProductService;
 import market.service.CategoryService;
 import market.sorting.ISorter;
@@ -30,25 +30,25 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 /**
- * Region products showcase.
+ * Category products showcase.
  */
 @Controller
-@RequestMapping("/regions")
+@RequestMapping("/categories")
 public class ShowcaseController {
-	private static final String REGIONS_BASE = "regions";
+	private static final String CATEGORIES_BASE = "categories";
 
 	private final CategoryService categoryService;
 	private final ProductService productService;
-	private final DistilleryService distilleryService;
+	private final ManufacturerService manufacturerService;
 	private final ISorter<ProductDTO> productSorting = new ProductSorting();
 	private final ProductDtoAssembler productAssembler = new ProductDtoAssembler();
 	private final CategoryDtoAssembler categoryDTOAssembler = new CategoryDtoAssembler();
-	private final DistilleryDtoAssembler distilleryDTOAssembler = new DistilleryDtoAssembler();
+	private final ManufacturerDtoAssembler manufacturerDTOAssembler = new ManufacturerDtoAssembler();
 
-	public ShowcaseController(CategoryService categoryService, ProductService productService, DistilleryService distilleryService) {
+	public ShowcaseController(CategoryService categoryService, ProductService productService, ManufacturerService manufacturerService) {
 		this.categoryService = categoryService;
 		this.productService = productService;
-		this.distilleryService = distilleryService;
+		this.manufacturerService = manufacturerService;
 	}
 
 	/**
@@ -68,14 +68,14 @@ public class ShowcaseController {
 		if (distilleryId == 0) {
 			pagedProducts = productService.findByRegion(category, request);
 		} else {
-			Distillery distillery = distilleryService.findById(distilleryId);
-			pagedProducts = productService.findByDistillery(distillery, request);
-			model.addAttribute("currentDistilleryTitle", distillery.getTitle());
+			Manufacturer manufacturer = manufacturerService.findById(distilleryId);
+			pagedProducts = productService.findByDistillery(manufacturer, request);
+			model.addAttribute("currentDistilleryTitle", manufacturer.getTitle());
 		}
 		productSorting.prepareModel(model, pagedProducts.map(productAssembler::toModel));
 
-		List<DistilleryDTO> distilleriesDto = distilleryService.findByRegion(category).stream()
-			.map(distilleryDTOAssembler::toModel)
+		List<ManufacturerDTO> distilleriesDto = manufacturerService.findByRegion(category).stream()
+			.map(manufacturerDTOAssembler::toModel)
 			.collect(toList());
 		model.addAttribute("distilleries", distilleriesDto);
 
@@ -85,6 +85,6 @@ public class ShowcaseController {
 			.collect(toList());
 		model.addAttribute("categories", categoriesDto);
 		model.addAttribute("selectedCategory", categoryDTOAssembler.toModel(category));
-		return REGIONS_BASE;
+		return CATEGORIES_BASE;
 	}
 }

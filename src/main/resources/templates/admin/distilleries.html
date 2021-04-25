@@ -24,21 +24,21 @@
 			</tr>
 			</thead>
 
-			<tr th:each="distillery : ${distilleries}"
-				th:with="desc=${distillery.description},shortDesc=${desc.length() > 100 ? #strings.substring(desc, 0, 100) : desc}">
+			<tr th:each="manufacturer : ${distilleries}"
+				th:with="desc=${manufacturer.description},shortDesc=${desc.length() > 100 ? #strings.substring(desc, 0, 100) : desc}">
 
-				<td th:text="${distillery.id}"></td>
-				<td th:text="${distillery.title}"></td>
-				<td th:text="${distillery.region}"></td>
+				<td th:text="${manufacturer.id}"></td>
+				<td th:text="${manufacturer.title}"></td>
+				<td th:text="${manufacturer.region}"></td>
 				<td>
 					<span th:text="${shortDesc}"></span>
 					<span th:if="${desc.length() >= 100}">...</span>
 				</td>
 				<td>
-					<form method="post" th:action="@{distilleries/{id}/delete(id=${distillery.id})}">
+					<form method="post" th:action="@{distilleries/{id}/delete(id=${manufacturer.id})}">
 						<div class="btn-group btn-group-xs pull-right">
 							<a class="btn btn-default"
-							   th:href="@{distilleries/{id}/edit(id=${distillery.id})}">изменить</a>
+							   th:href="@{distilleries/{id}/edit(id=${manufacturer.id})}">изменить</a>
 							<button class="btn btn-default" type="submit">удалить</button>
 						</div>
 					</form>

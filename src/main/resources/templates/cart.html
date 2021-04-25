@@ -1,5 +1,5 @@
 <!--
-    Страница корзины.
+    Корзина
 -->
 <!DOCTYPE html>
 <html lang="en"
@@ -25,38 +25,28 @@
 
 <h1 class="post-title">Корзина</h1>
 
-<p th:if="${session.cart.totalItems > 1}">В вашей корзине находится <span
+<p th:if="${session.cart.totalItems > 1}">В корзине находится <span
 		th:text="${session.cart.totalItems}">cart.totalItems</span> товаров.</p>
-<p th:if="${session.cart.totalItems == 1}">В вашей корзине находится один товар.</p>
-<p th:if="${cartEmpty}">Ваша корзина пуста.</p>
+<p th:if="${session.cart.totalItems == 1}">В корзине находится один товар.</p>
+<p th:if="${cartEmpty}">Корзина пуста.</p>
 
 <br>
 
 <div>
 	<div align="center" class="col-md-4" th:if="${!cartEmpty}">
 		<form method="post" th:action="@{/cart/clear}">
-			<button class="btn btn-default" type="submit">
-				очистить корзину
-			</button>
+			<button class="btn btn-default" type="submit">очистить корзину</button>
 		</form>
 	</div>
 	<div align="center" class="col-md-4">
-		<a class="btn btn-primary" th:href="@{/}">
-			продолжить покупки
-		</a>
+		<a class="btn btn-primary" th:href="@{/}">продолжить покупки</a>
 	</div>
 	<div align="center" class="col-md-4" th:if="${!cartEmpty}">
 		<div sec:authorize="!hasRole('ROLE_ANONYMOUS')">
-			<a class="btn btn-primary"
-			   id="next-step"
-			   th:href="@{${session.cart.deliveryIncluded} ? '/checkout/details' : '/checkout/payment'}">
-				оформить заказ
-			</a>
+			<a class="btn btn-primary" id="next-step" th:href="@{${session.cart.deliveryIncluded} ? '/checkout/details' : '/checkout/payment'}">оформить заказ</a>
 		</div>
 		<div sec:authorize="hasRole('ROLE_ANONYMOUS')">
-			<a class="btn btn-primary" th:href="@{/login}">
-				войти для оформления
-			</a>
+			<a class="btn btn-primary" th:href="@{/login}">войти для оформления</a>
 		</div>
 	</div>
 </div>
@@ -81,45 +71,41 @@
 
 			<tr th:each="cartItem : ${session.cart.cartItems}" th:with="product=${productsById[cartItem.productId]}">
 				<td>
-					<img th:alt="${product.distillery} + ' ' + ${product.name}"
-						 th:src="@{'img/' + ${product.distillery} + '/' + ${product.name} + '.jpg'}"
+					<img th:alt="${product.manufacturer} + ' ' + ${product.name}"
+						 th:src="@{'img/' + ${product.manufacturer} + '/' + ${product.name} + '.jpg'}"
 						 width="100">
 				</td>
-				<td th:text="${product.distillery} + ' ' + ${product.name}"></td>
+				<td th:text="${product.manufacturer} + ' ' + ${product.name}"></td>
 				<td th:text="${product.price} + '&nbsp;руб.'"></td>
 				<td width="125">
 					<form method="put" th:object="${cartItem}">
 						<input name="productId" th:value="${product.productId}" type="hidden">
 						<div class="input-group input-group-sm">
-							<input class="form-control" maxlength="2" name="quantity"
-								   size="1"
-								   th:value="*{quantity}" type="text">
+							<input class="form-control" maxlength="2" name="quantity" size="1" th:value="*{quantity}" type="text">
 							<span class="input-group-btn">
-								<button class="btn btn-default" type="submit">
-									изменить
-								</button>
+								<button class="btn btn-default" type="submit">изменить</button>
 							</span>
 						</div>
 					</form>
 				</td>
-				<td th:text="${product.price * cartItem.quantity} + '&nbsp;руб.'"></td>
+				<td th:text="${product.price * cartItem.quantity} + '&nbsp;грн.'"></td>
 			</tr>
 
 			<tr class="included-true">
-				<td align="right" colspan="4">подитог:</td>
-				<td th:text="${session.cart.productsCost} + '&nbsp;руб.'"></td>
+				<td align="right" colspan="4">сумма:</td>
+				<td th:text="${session.cart.productsCost} + '&nbsp;грн.'"></td>
 			</tr>
 			<tr class="included-true">
-				<td align="right" colspan="4">доставка по Петербургу:</td>
-				<td th:text="${deliveryCost} + '&nbsp;руб.'"></td>
+				<td align="right" colspan="4">доставка:</td>
+				<td th:text="${deliveryCost} + '&nbsp;грн.'"></td>
 			</tr>
 			<tr class="included-true">
-				<td align="right" colspan="4"><h4>итог:</h4></td>
-				<td><h4 th:text="${session.cart.productsCost + deliveryCost} + '&nbsp;руб.'"></h4></td>
+				<td align="right" colspan="4"><h4>всего:</h4></td>
+				<td><h4 th:text="${session.cart.productsCost + deliveryCost} + '&nbsp;грн.'"></h4></td>
 			</tr>
 			<tr class="included-false">
-				<td align="right" colspan="4"><h4>итог:</h4></td>
-				<td><h4 th:text="${session.cart.productsCost} + '&nbsp;руб.'"></h4></td>
+				<td align="right" colspan="4"><h4>всего:</h4></td>
+				<td><h4 th:text="${session.cart.productsCost} + '&nbsp;грн.'"></h4></td>
 			</tr>
 		</table>
 	</div>
@@ -130,20 +116,18 @@
 				<div class="panel-body">
 					<form class="form-horizontal" method="put" th:action="@{/cart/delivery}">
 						<div class="form-group">
-							<label class="col-sm-4 control-label">
-								получение:
-							</label>
+							<label class="col-sm-4 control-label">получение:</label>
 							<div class="col-sm-8">
 								<div class="radio">
 									<input name="included" th:checked="${session.cart.deliveryIncluded}" th:value="true"
 										   type="radio">
-									доставкой по Петербургу
+									с доставкой по Украине
 								</div>
 								<div class="radio">
 									<input name="included" th:checked="${!session.cart.deliveryIncluded}"
 										   th:value="false"
 										   type="radio">
-									самовывозом со склада,<br>ул. Пекарская, д. 221б
+									самовывозом со склада
 								</div>
 							</div>
 						</div>
@@ -155,59 +139,13 @@
 			<div class="panel panel-primary included-true">
 				<div class="panel-heading"><h3 class="panel-title">Гарантия доставки<br>на следующий день</h3></div>
 				<div class="panel-body"
-					 th:text="'Цена курьерской доставки в объёме ' + ${session.cart.deliveryCost} + '&nbsp;руб. включена в заказ'"></div>
+					 th:text="'Цена курьерской доставки в объёме ' + ${session.cart.deliveryCost} + '&nbsp;грн. включена в заказ'"></div>
 			</div>
 		</div>
 	</div>
 
 </div>
 
-<div aria-hidden="true" aria-labelledby="detailsModal" class="modal" id="detailsModal" role="dialog" tabindex="-1">
-	<div class="modal-dialog" style="line-height:160%;">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
-				<h4 class="modal-title">Корзина</h4>
-			</div>
-			<div class="modal-body">
-				<p>Функции</p>
-				<ol type="1">
-					<li>просмотр списка товаров;</li>
-					<li>изменение количества товаров;</li>
-					<li>очистка корзины;</li>
-					<li>выбор способа доставки.</li>
-				</ol>
-				<hr/>
-				<p>Детали реализации</p>
-				<ol class="discharged" type="1">
-					<li>Реализованы два способа хранения корзины: для гостей и для зарегистрированных пользователей. Оба
-						способа используют экземпляры одного класса <code>market.domain.Cart</code>.
-						<ul>
-							<li>Корзина пользователя хранится в базе данных и, после авторизации, доступна ему в любое
-								время с любого устройства.
-							</li>
-							<li>Корзина гостя размещается в данных сессии и сохраняется в течение 30 минут с момента
-								последнего посещения магазина. При регистрации нового пользователя содержимое его
-								гостевой корзины автоматически переносится в корзину пользователя.
-							</li>
-						</ul>
-					</li>
-					<li>Установка способа получения заказа реализована асинхронным запросом AJAX и выполняется без
-						обновления страницы.
-					</li>
-					<li>Следующий этап оформления заказа зависит от выбранного способа получения:
-						<ul>
-							<li>доставка курьером - будут уточнены контактные данные покупателя;</li>
-							<li>самовывоз - будет предложено проверить и оплатить заказ.</li>
-						</ul>
-						Процесс оформлени заказа наглядно изображён на диаграмме в разделе <a
-								th:href="@{/inside#ckeckout}">оформление заказа</a>.
-					</li>
-				</ol>
-			</div>
-		</div>
-	</div>
-</div>
 
 <script>
     $('body').delegate('input[name=included]:checked', 'change', function () {
@@ -240,7 +178,7 @@
                 });
             },
             error: function () {
-                alert("Что-то пошло не так.\nПопробуйте добавить товар ещё раз.");
+                alert("Попробуйте добавить товар ещё раз.");
             }
         });
     });

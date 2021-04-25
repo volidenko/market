@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface CategoryDAO extends CrudRepository<Category, Long>, JpaRepository<Category, Long> {
 
-	Optional<Category> findByName(String regionName);
+	Optional<Category> findByTitle(String categoryTitle);
 
 }

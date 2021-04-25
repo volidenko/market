@@ -13,8 +13,7 @@ public class ProductBackendSorting extends AbstractSorter {
 	public ProductBackendSorting(int defaultPageSize) {
 		this.defaultPageSize = defaultPageSize;
 		sortFieldOptions.put("price", "по цене");
-		sortFieldOptions.put("distillery.title", "по винокурне");
-		sortFieldOptions.put("age", "по возрасту");
+		sortFieldOptions.put("manufacturer.title", "по производителю");
 	}
 
 	@Override

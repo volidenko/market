@@ -1,11 +1,11 @@
 package market.controller.backend;
 
-import market.domain.Distillery;
-import market.dto.DistilleryDTO;
+import market.domain.Manufacturer;
+import market.dto.ManufacturerDTO;
 import market.dto.CategoryDTO;
-import market.dto.assembler.DistilleryDtoAssembler;
+import market.dto.assembler.ManufacturerDtoAssembler;
 import market.dto.assembler.CategoryDtoAssembler;
-import market.service.DistilleryService;
+import market.service.ManufacturerService;
 import market.service.CategoryService;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -28,20 +28,20 @@ public class DistilleryController {
 	private static final String DISTILLERIES_NEW = DISTILLERIES_BASE + "/new";
 	private static final String DISTILLERIES_EDIT = DISTILLERIES_BASE + "/edit";
 
-	private final DistilleryService distilleryService;
+	private final ManufacturerService manufacturerService;
 	private final CategoryService categoryService;
 	private final CategoryDtoAssembler categoryDtoAssembler = new CategoryDtoAssembler();
-	private final DistilleryDtoAssembler distilleryDtoAssembler = new DistilleryDtoAssembler();
+	private final ManufacturerDtoAssembler manufacturerDtoAssembler = new ManufacturerDtoAssembler();
 
-	public DistilleryController(DistilleryService distilleryService, CategoryService categoryService) {
-		this.distilleryService = distilleryService;
+	public DistilleryController(ManufacturerService manufacturerService, CategoryService categoryService) {
+		this.manufacturerService = manufacturerService;
 		this.categoryService = categoryService;
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String allDistilleries(Model model) {
-		List<DistilleryDTO> distilleriesDto = distilleryService.findAll().stream()
-			.map(distilleryDtoAssembler::toModel)
+		List<ManufacturerDTO> distilleriesDto = manufacturerService.findAll().stream()
+			.map(manufacturerDtoAssembler::toModel)
 			.collect(toList());
 		model.addAttribute("distilleries", distilleriesDto);
 		return DISTILLERIES_BASE;
@@ -55,19 +55,19 @@ public class DistilleryController {
 			.map(categoryDtoAssembler::toModel)
 			.collect(toList());
 		model.addAttribute("categories", categoriesDto);
-		model.addAttribute("distillery", new Distillery());
+		model.addAttribute("distillery", new Manufacturer());
 		return DISTILLERIES_NEW;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/new")
 	public String postDistillery(
-		@Valid DistilleryDTO distilleryDto, BindingResult bindingResult
+			@Valid ManufacturerDTO manufacturerDto, BindingResult bindingResult
 	) {
 		if (bindingResult.hasErrors())
 			return DISTILLERIES_NEW;
 
-		Distillery newDistillery = distilleryDtoAssembler.toDomain(distilleryDto);
-		distilleryService.create(newDistillery, distilleryDto.getRegion());
+		Manufacturer newManufacturer = manufacturerDtoAssembler.toDomain(manufacturerDto);
+		manufacturerService.create(newManufacturer, manufacturerDto.getRegion());
 		return "redirect:/" + DISTILLERIES_BASE;
 	}
 
@@ -82,22 +82,22 @@ public class DistilleryController {
 			.collect(toList());
 		model.addAttribute("regions", regionsDto);
 
-		Distillery distillery = distilleryService.findById(distilleryId);
-		model.addAttribute("distillery", distilleryDtoAssembler.toModel(distillery));
+		Manufacturer manufacturer = manufacturerService.findById(distilleryId);
+		model.addAttribute("distillery", manufacturerDtoAssembler.toModel(manufacturer));
 
 		return DISTILLERIES_EDIT;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/{distilleryId}/edit")
 	public String putDistillery(
-		@PathVariable long distilleryId,
-		@Valid DistilleryDTO distilleryDto, BindingResult bindingResult
+			@PathVariable long distilleryId,
+			@Valid ManufacturerDTO manufacturerDto, BindingResult bindingResult
 	) {
 		if (bindingResult.hasErrors())
 			return DISTILLERIES_EDIT;
 
-		Distillery changedDistillery = distilleryDtoAssembler.toDomain(distilleryDto);
-		distilleryService.update(distilleryId, changedDistillery, distilleryDto.getRegion());
+		Manufacturer changedManufacturer = manufacturerDtoAssembler.toDomain(manufacturerDto);
+		manufacturerService.update(distilleryId, changedManufacturer, manufacturerDto.getRegion());
 		return "redirect:/" + DISTILLERIES_BASE;
 	}
 
@@ -105,7 +105,7 @@ public class DistilleryController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/{distilleryId}/delete")
 	public String deleteDistillery(@PathVariable long distilleryId) {
-		distilleryService.delete(distilleryId);
+		manufacturerService.delete(distilleryId);
 		return "redirect:/" + DISTILLERIES_BASE;
 	}
 }
