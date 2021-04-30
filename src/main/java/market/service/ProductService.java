@@ -24,14 +24,14 @@ public interface ProductService {
 	Page<Product> findAll(PageRequest request);
 
 	/**
-	 * @return all the products of the specified distillery, sorted by title
+	 * @return all the products of the specified manufacturer, sorted by title
 	 */
-	Page<Product> findByDistillery(Manufacturer manufacturer, PageRequest request);
+	Page<Product> findByManufacturer(Manufacturer manufacturer, PageRequest request);
 
 	/**
-	 * @return all the products of the specified region, sorted by title
+	 * @return all the products of the specified category, sorted by title
 	 */
-	Page<Product> findByRegion(Category region, PageRequest request);
+	Page<Product> findByCategory(Category category, PageRequest request);
 
 	/**
 	 * @return all the available products, sorted by title
@@ -52,14 +52,14 @@ public interface ProductService {
 	/**
 	 * Creates new product.
 	 */
-	void create(Product product, String distilleryTitle);
+	void create(Product product, String manufacturerTitle);
 
 	/**
 	 * Updates existing product.
 	 *
 	 * @throws UnknownEntityException if product does not exist
 	 */
-	void update(long productId, Product product, String distilleryTitle);
+	void update(long productId, Product product, String manufacturer);
 
 	/**
 	 * Updates availability of the specified product.
@@ -67,7 +67,7 @@ public interface ProductService {
 	void updateAvailability(Map<Boolean, List<Long>> productIdsByAvailability);
 
 	/**
-	 * Removes distillery.
+	 * Removes manufacturer.
 	 */
 	void delete(long product);
 }

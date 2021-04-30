@@ -1,7 +1,6 @@
 package market.service;
 
 import market.domain.Manufacturer;
-import market.domain.Category;
 
 import java.util.List;
 
@@ -12,33 +11,29 @@ public interface ManufacturerService {
 	 */
 	List<Manufacturer> findAll();
 
-	/**
-	 * @return all the distilleries of the specified region sorted by title
-	 */
-	List<Manufacturer> findByRegion(Category category);
 
 	/**
-	 * @return distillery with the specified id
+	 * @return manufacturer with the specified id
 	 */
-	Manufacturer findById(long distilleryId);
+	Manufacturer findById(long manufacturerId);
 
 	/**
-	 * @return distillery with the specified title
+	 * @return manufacturer with the specified title
 	 */
 	Manufacturer findByTitle(String title);
 
 	/**
-	 * Creates new distillery.
+	 * Creates new manufacturer
 	 */
-	void create(Manufacturer newManufacturer, String regionName);
+	void create(Manufacturer newManufacturer);
 
 	/**
-	 * Updates existing distillery.
+	 * Updates existing manufacturer.
 	 */
-	void update(long distilleryId, Manufacturer changedManufacturer, String regionTitle);
+	void update(long manufacturerId, Manufacturer changedManufacturer);
 
 	/**
-	 * Removes distillery.
+	 * Removes manufacturer.
 	 */
-	void delete(long distilleryId);
+	void delete(long manufacturerId);
 }

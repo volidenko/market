@@ -1,26 +1,25 @@
-<!--
-    Главное меню внешнего интерфейса.
--->
+<!--    Главное меню -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div th:fragment="menu" th:if="${!regions.isEmpty()}">
-	<div class="header-regions">
-		<div class="region-item region-item-title">регионы:</div>
+<div th:fragment="menu" >
+<!--	th:if="${!categories.isEmpty()}"-->
+	<div class="header-categories">
+		<div class="category-item category-item-title">Категории:</div>
 	</div>
-	<div class="header-regions">
-		<div th:each="region : ${regions}">
-			<div th:if="${region.id == selectedRegion.id}">
-				<div class="region-item region-item-active">
-						<span class="regionText" th:text="${region.name}">
-							region.name
+	<div class="header-categories">
+		<div th:each="category : ${categories}">
+			<div th:if="${category.id == selectedCategory.id}">
+				<div class="category-item category-item-active">
+						<span class="categoryText" th:text="${category.title}">
+							category.title
 						</span>
 				</div>
 			</div>
-			<div th:classappend="'region-item scheme-grey border-' + ${region.color}"
-				 th:if="${region.id != selectedRegion.id}">
-				<a class="regionText" th:href="@{'/regions/' + ${region.id}}" th:text="${region.name}">
-					region.name
+			<div th:classappend="'category-item scheme-grey border-'"
+				 th:if="${category.id != selectedCategory.id}">
+				<a class="categoryText" th:href="@{'/categories/' + ${category.id}}" th:text="${category.title}">
+					category.title
 				</a>
 			</div>
 		</div>

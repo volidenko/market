@@ -39,27 +39,27 @@
 					<tr th:each="cartItem : ${session.cart.cartItems}"
 						th:with="product=${productsById[cartItem.productId]}">
 						<td th:text="${product.manufacturer + ' ' + product.name}"></td>
-						<td th:text="${product.price} + '&nbsp;руб.'"></td>
+						<td th:text="${product.price} + '&nbsp;грн.'"></td>
 						<td th:text="${cartItem.quantity}"></td>
-						<td th:text="${(product.price * cartItem.quantity) + '&nbsp;руб.'}"></td>
+						<td th:text="${(product.price * cartItem.quantity) + '&nbsp;грн.'}"></td>
 					</tr>
 
 					<tr th:if="${deliveryIncluded}">
-						<td align="right" colspan="3"><b>подитог:</b></td>
-						<td><b th:text="${session.cart.productsCost + '&nbsp;руб.'}"></b></td>
+						<td align="right" colspan="3"><b>Всего:</b></td>
+						<td><b th:text="${session.cart.productsCost + '&nbsp;грн.'}"></b></td>
 					</tr>
 					<tr style="background-color: white;" th:if="${deliveryIncluded}">
-						<td align="right" colspan="3">доставка:</td>
-						<td th:text="${deliveryCost + '&nbsp;руб.'}"></td>
+						<td align="right" colspan="3">Доставка:</td>
+						<td th:text="${deliveryCost + '&nbsp;грн.'}"></td>
 					</tr>
 					<tr th:if="${deliveryIncluded}">
-						<td align="right" colspan="3"><h5>сумма к оплате:</h5></td>
-						<td><h5 th:text="${(session.cart.productsCost + deliveryCost) + '&nbsp;руб.'}"></h5></td>
+						<td align="right" colspan="3"><h5>Сумма к оплате:</h5></td>
+						<td><h5 th:text="${(session.cart.productsCost + deliveryCost) + '&nbsp;грн.'}"></h5></td>
 					</tr>
 
 					<tr th:if="${!deliveryIncluded}">
-						<td align="right" colspan="3"><h5>сумма к оплате:</h5></td>
-						<td><h5 th:text="${session.cart.productsCost + '&nbsp;руб.'}"></h5></td>
+						<td align="right" colspan="3"><h5>Сумма к оплате:</h5></td>
+						<td><h5 th:text="${session.cart.productsCost + '&nbsp;грн.'}"></h5></td>
 					</tr>
 				</table>
 			</div>
@@ -70,10 +70,9 @@
 				<div class="panel-body">
 					<p th:if="${deliveryIncluded}">доставка курьером</p>
 					<p th:if="${deliveryIncluded}"
-					   th:utext="${userName + '&lt;br>' + userContacts.phone + '&lt;br>' + userContacts.address + '&lt;br>г. Санкт-Петербург'}"></p>
+					   th:utext="${userName + '&lt;br>' + userContacts.phone + '&lt;br>' + userContacts.address}"></p>
 					<span th:if="${!deliveryIncluded}">
-					самовывоз со склада,<br>
-					ул. Пекарская, д. 221б
+					самовывоз со склада<br>
 				</span>
 				</div>
 			</div>
@@ -143,30 +142,6 @@
     });
 </script>
 
-	<div aria-hidden="true" aria-labelledby="detailsModal" class="modal" id="detailsModal" role="dialog" tabindex="-1">
-		<div class="modal-dialog" style="line-height:160%;">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
-					<h4 class="modal-title">Подтверждение и оплата</h4>
-				</div>
-				<div class="modal-body">
-					<p>Функции:</p>
-					<ol type="1">
-						<li>предоставление покупателю информации о текущем заказе;</li>
-						<li>получение номера банковской карты.</li>
-					</ol>
-					<hr/>
-					<p>Детали реализации</p>
-					<ol class="discharged list-unstyled" type="1">
-						<li>Проверка данных формы выполняется дважды: на стороне пользователя и на стороне сервера.
-							Подробности в разделе <a th:href="@{/inside#forms}">проверка форм</a>.
-						</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
 
 </content>
 </body>

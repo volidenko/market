@@ -61,29 +61,29 @@ public class ProductController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String getProducts(
 		SortingValuesDTO sortingValues,
-		@RequestParam(value = "dist", required = false, defaultValue = "0") long distilleryId,
+		@RequestParam(value = "dist", required = false, defaultValue = "0") long manufacturerId,
 		Model model
 	) {
 		PageRequest request = productBackendSorting.updateSorting(sortingValues);
 		Page<Product> pagedProducts;
-		if (distilleryId == 0) {
+		if (manufacturerId == 0) {
 			pagedProducts = productService.findAll(request);
 		} else {
-			Manufacturer manufacturer = manufacturerService.findById(distilleryId);
-			pagedProducts = productService.findByDistillery(manufacturer, request);
-			model.addAttribute("currentDistilleryTitle", manufacturer.getTitle());
+			Manufacturer manufacturer = manufacturerService.findById(manufacturerId);
+			pagedProducts = productService.findByManufacturer(manufacturer, request);
+			model.addAttribute("currentManufacturerTitle", manufacturer.getTitle());
 		}
 		productBackendSorting.prepareModel(model, pagedProducts.map(productDtoAssembler::toModel));
 
-		List<Manufacturer> distilleries = manufacturerService.findAll();
-		List<ManufacturerDTO> distilleriesDto = distilleries.stream()
+		List<Manufacturer> manufacturers = manufacturerService.findAll();
+		List<ManufacturerDTO> manufacturersDto = manufacturers.stream()
 			.map(manufacturerDtoAssembler::toModel)
 			.collect(toList());
-		model.addAttribute("distilleries", distilleriesDto);
+		model.addAttribute("manufacturers", manufacturersDto);
 
-		Map<String, String> regionByDistillery = distilleries.stream()
-			.collect(toMap(Manufacturer::getTitle, d -> d.getCategory().getName()));
-		model.addAttribute("regionByDistillery", regionByDistillery);
+//		Map<String, String> regionByDistillery = distilleries.stream()
+//			.collect(toMap(Manufacturer::getTitle, d -> d.getCategory().getName()));
+//		model.addAttribute("regionByDistillery", regionByDistillery);
 
 		return PRODUCTS_BASE;
 	}
@@ -92,10 +92,10 @@ public class ProductController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/new")
 	public String newProduct(Model model) {
-		List<ManufacturerDTO> distilleriesDto = manufacturerService.findAll().stream()
+		List<ManufacturerDTO> manufacturersDto = manufacturerService.findAll().stream()
 			.map(manufacturerDtoAssembler::toModel)
 			.collect(toList());
-		model.addAttribute("distilleries", distilleriesDto);
+		model.addAttribute("manufacturers", manufacturersDto);
 		model.addAttribute("product", productDtoAssembler.toModel(new Product()));
 		return PRODUCTS_NEW;
 	}
@@ -122,10 +122,10 @@ public class ProductController {
 		if (!productOptional.isPresent())
 			return "redirect:/" + PRODUCTS_BASE;
 
-		List<ManufacturerDTO> distilleriesDto = manufacturerService.findAll().stream()
+		List<ManufacturerDTO> manufacturersDto = manufacturerService.findAll().stream()
 			.map(manufacturerDtoAssembler::toModel)
 			.collect(toList());
-		model.addAttribute("distilleries", distilleriesDto);
+		model.addAttribute("manufacturers", manufacturersDto);
 		model.addAttribute("product", productDtoAssembler.toModel(productOptional.get()));
 		return PRODUCTS_EDIT;
 	}

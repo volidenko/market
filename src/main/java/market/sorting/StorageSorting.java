@@ -5,9 +5,8 @@ import org.springframework.ui.*;
 
 import java.util.*;
 
-/**
- * Опции сортировки и фильтрации списка единиц хранения.
- */
+//Опции сортировки и фильтрации списка единиц хранения
+
 @Component
 public class StorageSorting extends AbstractSorter {
 
@@ -15,8 +14,8 @@ public class StorageSorting extends AbstractSorter {
 
 	public StorageSorting() {
 		sortFieldOptions.put("price", "по цене");
-		sortFieldOptions.put("distillery.title", "по винокурне");
-		sortFieldOptions.put("age", "по возрасту");
+		sortFieldOptions.put("manufacturer.title", "по производителю");
+		sortFieldOptions.put("category.title", "по категории");
 
 		availableOptions.put("all", "все товары");
 		availableOptions.put("true", "только в наличии");

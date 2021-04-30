@@ -20,10 +20,7 @@
 			<tr>
 				<th>id</th>
 				<th>название</th>
-				<th>объём,&nbsp;мл</th>
-				<th>алк.,&nbsp;%&nbsp;об.</th>
-
-				<th>цена,&nbsp;руб.</th>
+				<th>цена,&nbsp;грн.</th>
 				<th>в&nbsp;наличии</th>
 			</tr>
 			</thead>
@@ -31,8 +28,6 @@
 			<tr th:each="product : ${page.content}">
 				<td th:text="${product.productId}"></td>
 				<td th:text="${product.manufacturer + ' ' + product.name}"></td>
-				<td th:text="${product.volume}"></td>
-				<td th:text="${product.alcohol}"></td>
 				<td th:text="${product.price}"></td>
 				<td>
 					<input id="productsIds" name="productsIds" th:value="${product.productId}" type="hidden"/>

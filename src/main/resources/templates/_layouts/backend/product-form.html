@@ -12,12 +12,12 @@
 
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="manufacturer">
-			винокурня
+			производитель
 		</label>
 		<div class="col-sm-5">
 			<div class="btn-group">
 				<select class="form-control" id="manufacturer" name="manufacturer" th:field="*{manufacturer}">
-					<option th:each="dist : ${distilleries}" th:text="${dist.title}" th:value="${dist.title}"/>
+					<option th:each="manuf : ${manufacturers}" th:text="${manuf.title}" th:value="${manuf.title}"/>
 				</select>
 			</div>
 		</div>
@@ -37,50 +37,6 @@
 			<errors cssClass="alert alert-danger" element="div" path="name"/>
 		</div>
 
-		<label class="col-sm-2 control-label" for="age">
-			возраст
-		</label>
-		<div class="col-sm-3 has-feedback">
-			<input
-					class="form-control" data-describedby="age-desc" data-description="age" data-validate="age"
-					id="age" maxlength="10" name="age"
-					size="19" th:value="*{age}" value="${product.age}"/>
-			<span class="glyphicon form-control-feedback" id="age"></span>
-			<span class="help-block">обязательное поле<br>ноль &mdash; возраст не заявлен</span>
-			<div id="age-desc"></div>
-			<errors cssClass="alert alert-danger" element="div" path="age"/>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label class="col-sm-3 control-label" for="alcohol">
-			сод. алкоголя, % об.
-		</label>
-		<div class="col-sm-3 has-feedback">
-			<input
-					class="form-control" data-describedby="alcohol-desc" data-description="alcohol"
-					data-validate="alcohol"
-					id="alcohol" maxlength="10" name="alcohol" placeholder="40.0"
-					size="19" th:value="*{alcohol}" value="${product.alcohol}"/>
-			<span class="glyphicon form-control-feedback" id="alcohol"></span>
-			<span class="help-block">обязательное поле</span>
-			<div id="alcohol-desc"></div>
-			<errors cssClass="alert alert-danger" element="div" path="alcohol"/>
-		</div>
-
-		<label class="col-sm-2 control-label" for="volume">
-			объём, мл.
-		</label>
-		<div class="col-sm-3 has-feedback">
-			<input
-					class="form-control" data-describedby="volume-desc" data-description="volume" data-validate="volume"
-					id="volume" maxlength="10" name="volume"
-					size="19" th:value="*{volume}" value="${product.volume}"/>
-			<span class="glyphicon form-control-feedback" id="volume"></span>
-			<span class="help-block">обязательное поле</span>
-			<div id="volume-desc"></div>
-			<errors cssClass="alert alert-danger" element="div" path="volume"/>
-		</div>
 	</div>
 
 	<div class="form-group">
@@ -96,7 +52,7 @@
 
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="price">
-			цена, руб.
+			цена, грн.
 		</label>
 		<div class="col-sm-3 has-feedback">
 			<input
@@ -133,15 +89,6 @@
                 name: {
                     pattern: '<div class="alert alert-danger">Специальные символы недопустимы.</div>'
                 },
-                age: {
-                    pattern: '<div class="alert alert-danger">Допустимы только цифры.</div>'
-                },
-                volume: {
-                    pattern: '<div class="alert alert-danger">Допустимы только цифры.</div>'
-                },
-                alcohol: {
-                    pattern: '<div class="alert alert-danger">Допустимы только цифры и точка.</div>'
-                },
                 price: {
                     pattern: '<div class="alert alert-danger">Допустимы только цифры.</div>'
                 }
@@ -151,18 +98,6 @@
             name: {
                 required: true,
                 pattern: /^[^#$%^&*()']*$/
-            },
-            age: {
-                required: true,
-                pattern: /^[0-9]*$/
-            },
-            volume: {
-                required: true,
-                pattern: /^[0-9]*$/
-            },
-            alcohol: {
-                required: true,
-                pattern: /^(\d*[.])?\d+$/
             },
             price: {
                 required: true,

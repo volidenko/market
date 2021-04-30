@@ -1,8 +1,5 @@
 package market.sorting;
 
-/**
- *
- */
 public class SortingValuesDTO {
 
 	private Integer page;

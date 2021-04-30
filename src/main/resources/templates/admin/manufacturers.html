@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+	  th:replace="_layouts/backend/template :: backend(~{::content})"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.thymeleaf.org">
+<body>
+
+<content>
+
+	<h1>Управление производителями</h1>
+
+	<br>
+
+	<div class="table-responsive">
+		<table class="table table-small-text" width="100%">
+			<thead>
+			<tr>
+				<th>id</th>
+				<th>название</th>
+				<th width="150"></th>
+			</tr>
+			</thead>
+
+			<tr>
+				<td th:text="${manufacturer.id}"></td>
+				<td th:text="${manufacturer.title}"></td>
+				<td>
+					<form method="post" th:action="@{manufacturers/{id}/delete(id=${manufacturer.id})}">
+						<div class="btn-group btn-group-xs pull-right">
+							<a class="btn btn-default"
+							   th:href="@{manufacturers/{id}/edit(id=${manufacturer.id})}">изменить</a>
+							<button class="btn btn-default" type="submit">удалить</button>
+						</div>
+					</form>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="5">
+					<a class="btn btn-primary btn-sm" th:href="@{manufacturers/new}">
+						добавить производителя
+					</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</content>
+</body>
+</html>

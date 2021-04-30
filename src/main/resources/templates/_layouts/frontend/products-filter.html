@@ -7,9 +7,9 @@
 <div th:fragment="filter">
 	<div class="pull-right">
 		<div class="btn-group">
-			<span class="btn btn-xs btn-default disabled">винокурня</span>
+			<span class="btn btn-xs btn-default disabled">Производитель</span>
 			<button class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" type="button">
-				<span th:text="${(param.dist == null || param.dist == 0) ? 'все' : currentDistilleryTitle}"></span>&nbsp;
+				<span th:text="${(param.dist == null || param.dist == 0) ? 'все' : currentManufacturerTitle}"></span>&nbsp;
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu dropdown-menu-right"
@@ -17,7 +17,7 @@
 				<li>
 					<a th:href="@{${urlBuilder.replaceQueryParam('dist', 0).build().toUriString()}}">все</a>
 				</li>
-				<li th:each="newDist : ${distilleries}" style="width:auto;">
+				<li th:each="newDist : ${manufacturers}" style="width:auto;">
 					<a th:href="@{${urlBuilder.replaceQueryParam('dist', newDist.id).replaceQueryParam('page', 1).build().toUriString()}}"
 					   th:text="${newDist.title}"></a>
 				</li>

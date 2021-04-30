@@ -52,32 +52,33 @@ public class ShowcaseController {
 	}
 
 	/**
-	 * Region products page. Filtering by distillery and sorting.
+	 * Category products page. Filtering by manufacturer and sorting.
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/{regionId}")
-	public String getRegionProducts(
-		@PathVariable long regionId,
+	@RequestMapping(method = RequestMethod.GET, value = "/{categoryId}")
+	public String getCategoryProducts(
+		@PathVariable long categoryId,
 		SortingValuesDTO sortingValues,
-		@RequestParam(value = "dist", required = false, defaultValue = "0") Long distilleryId,
+		@RequestParam(value = "dist", required = false, defaultValue = "0") Long manufacturerId,
 		Model model
 	) {
-		Category category = categoryService.findOne(regionId);
+		Category category = categoryService.findOne(categoryId);
 
 		PageRequest request = productSorting.updateSorting(sortingValues);
 		Page<Product> pagedProducts;
-		if (distilleryId == 0) {
-			pagedProducts = productService.findByRegion(category, request);
+		if (manufacturerId == 0) {
+			pagedProducts = productService.findByCategory(category, request);
 		} else {
-			Manufacturer manufacturer = manufacturerService.findById(distilleryId);
-			pagedProducts = productService.findByDistillery(manufacturer, request);
-			model.addAttribute("currentDistilleryTitle", manufacturer.getTitle());
+			Manufacturer manufacturer = manufacturerService.findById(manufacturerId);
+			pagedProducts = productService.findByManufacturer(manufacturer, request);
+			model.addAttribute("currentManufacturerTitle", manufacturer.getTitle());
 		}
 		productSorting.prepareModel(model, pagedProducts.map(productAssembler::toModel));
 
-		List<ManufacturerDTO> distilleriesDto = manufacturerService.findByRegion(category).stream()
+		List<ManufacturerDTO> manufacturersDto = manufacturerService.findAll().stream()
+			.sorted(Comparator.comparing(Manufacturer::getId))
 			.map(manufacturerDTOAssembler::toModel)
 			.collect(toList());
-		model.addAttribute("distilleries", distilleriesDto);
+		model.addAttribute("manufacturers", manufacturersDto);
 
 		List<CategoryDTO> categoriesDto = categoryService.findAll().stream()
 			.sorted(Comparator.comparing(Category::getId))

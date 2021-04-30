@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"
+	  th:replace="_layouts/backend/template :: backend(~{::content})"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	  xsi:schemaLocation="http://www.thymeleaf.org">
+<body>
+
+<content>
+
+	<h1>Редактирование производителя</h1>
+
+	<br>
+
+	<form class="form-horizontal" id="manufacturerForm"
+          method="post"
+          th:action="@{/templates/admin/manufacturers/{id}/edit(id=${manufacturer.id})}" th:object="${manufacturer}">
+
+		<input name="id" th:value="*{id}" type="hidden"/>
+
+		<div th:replace="~{_layouts/backend/manufacturer-form :: manufacturer-form}">manufacturer-form</div>
+
+		<div class="form-group">
+			<div class="col-sm-offset-3 col-sm-8">
+				<a class="btn btn-default" th:href="@{/templates/admin/manufacturers}">
+					Вернуться
+				</a>
+				<button class="btn btn-primary" type="submit">
+					Изменить
+				</button>
+			</div>
+		</div>
+
+	</form>
+
+</content>
+</body>
+</html>

@@ -12,10 +12,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface ProductDAO extends CrudRepository<Product, Long>, JpaRepository<Product, Long> {
 
-	Page<Product> findByDistilleryOrderByName(Manufacturer manufacturer, Pageable request);
+	Page<Product> findByManufacturerOrderByName(@Param("manufacturer")Manufacturer manufacturer, Pageable request);
 
-	@Query(value = "SELECT p FROM Product p WHERE p.distillery IN (SELECT d FROM Manufacturer d WHERE d.category = :category) order by p.name")
-	Page<Product> findByRegionOrderByName(@Param("category") Category category, Pageable request);
+	//@Query(value = "SELECT p FROM Product p WHERE p.manufacturer IN (SELECT d FROM Manufacturer d WHERE d.category = :category) order by p.name")
+	Page<Product> findByCategoryOrderByName(@Param("category") Category category, Pageable request);
 
 	Page<Product> findByAvailableOrderByName(boolean available, Pageable request);
 }

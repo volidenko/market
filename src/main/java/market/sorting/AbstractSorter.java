@@ -11,22 +11,10 @@ import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
-/**
- * Управляющий сортировкой и разбивкой на страницы.
- * <p>
- * Инкапсулирует операции с опциями сортировки и разбивки на страницы: хранение
- * и обновление значений, а также дополнение модели необходимыми объектами в
- * соответствии с текущими значениями.
- * <p>
- * Добавление перечня опций сортировки (по умолчанию пустой) и другого
- * дополнительного функционала (e.g. фильтрации) осуществляется в классах-потомках.
- *
- * @param <T> класс элементов обрабатываемого списка
- */
 public abstract class AbstractSorter<T> implements ISorter<T> {
 
 	public static Integer FIRST_PAGE = 1;
-	public static Integer PAGE_SIZE_DEFAULT = 2;
+	public static Integer PAGE_SIZE_DEFAULT = 5;
 	public static Sort.Direction DIRECTION_DEFAULT = Sort.Direction.ASC;
 
 	protected final Map<String, String> sortFieldOptions = new LinkedHashMap<>();
@@ -44,10 +32,10 @@ public abstract class AbstractSorter<T> implements ISorter<T> {
 		pageSizeOptions.put(5, "5");
 		pageSizeOptions.put(10, "10");
 		pageSizeOptions.put(20, "20");
-		pageSizeOptions.put(2, "100");
+		pageSizeOptions.put(100, "100");
 	}
 
-	//-------------------------------------------------------- Обновление опций
+	// Обновление опций
 
 	private static Sort.Direction parseSortDirection(String direction) {
 		if (direction == null)

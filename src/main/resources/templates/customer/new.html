@@ -1,6 +1,5 @@
-<!--
-    Страница регистрации нового пользователя.
--->
+<!--Страница регистрации нового пользователя-->
+
 <!DOCTYPE html>
 <html lang="en"
 	  th:replace="_layouts/frontend/template :: frontend(~{}, ~{::content})"
@@ -15,7 +14,7 @@
 
 	<h1>Регистрация пользователя</h1>
 
-	<p>Чтобы иметь возможность совершать покупки в магазине, пожалуйста, сообщите следующую информацию:</p>
+	<p>Чтобы иметь возможность совершать покупки в магазине, пожалуйста, зарегистрируйтесь:</p>
 
 	<br>
 
@@ -27,7 +26,7 @@
 			<div class="col-sm-6 has-feedback">
 				<input class="form-control" data-describedby="name-desc" data-description="name"
 					   data-validate="name" id="name" maxlength="50"
-					   name="name" placeholder="Иван Петров" size="19"
+					   name="name" placeholder="Иванов Иван" size="19"
 					   th:value="*{name}"/>
 				<span class="glyphicon form-control-feedback" id="name"></span>
 				<span class="help-block">обязательное поле</span>
@@ -48,7 +47,7 @@
 						id="email"
 						maxlength="50"
 						name="email"
-						placeholder="petrov@some.domain"
+						placeholder="user@i.ua"
 						size="19"
 						th:value="*{email}"/>
 				<span class="glyphicon form-control-feedback" id="email"></span>
@@ -115,7 +114,7 @@
 						id="phone"
 						maxlength="20"
 						name="phone"
-						placeholder="+7 (123) 456 78 90"
+						placeholder="+38 (066) 666 77 88"
 						size="15"
 						th:value="*{phone}"/>
 				<span class="glyphicon form-control-feedback" id="phone"></span>
@@ -230,38 +229,6 @@
         }
     });
 </script>
-
-	<div aria-hidden="true" aria-labelledby="detailsModal" class="modal" id="detailsModal" role="dialog" tabindex="-1">
-		<div class="modal-dialog" style="line-height:160%;">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
-					<h4 class="modal-title">Регистрация пользователя</h4>
-				</div>
-				<div class="modal-body">
-					<p>Функции</p>
-					<ol type="1">
-						<li>создание учётной записи;</li>
-						<li>получение и сохранение данных о покупателе;</li>
-						<li>проверка корректного вида введённых данных.</li>
-					</ol>
-					<hr/>
-					<p>Детали реализации</p>
-					<ol class="discharged" type="1">
-						<li>Пароль учётной записи не хранится в виде текста, при регистрации вычисляется его хэш-функция,
-							которая заносится в базу данных.
-						</li>
-						<li>Указанные пользователем телефон и адрес доставки будут использоваться в качестве контактных
-							данных по умолчанию. Позже они могут быть изменены в процессе оформления заказа.
-						</li>
-						<li>Проверка данных формы выполняется дважды: на стороне пользователя и на стороне сервера.
-							Подробности в разделе <a th:href="@{/inside#forms}">проверка форм</a>.
-						</li>
-					</ol>
-				</div>
-			</div>
-		</div>
-	</div>
 
 </content>
 </body>

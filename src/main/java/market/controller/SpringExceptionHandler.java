@@ -32,7 +32,7 @@ public class SpringExceptionHandler {
 		this.messageSource = messageSource;
 	}
 
-	//-------------------------------------------------- Обработчики исключений
+	// Обработчики исключений
 
 	/**
 	 * Запрос пользователем несуществующих объектов.
@@ -72,7 +72,7 @@ public class SpringExceptionHandler {
 		return processFieldErrors(fieldErrors);
 	}
 
-	//----------------------------------------- Компоновка сообщений об ошибках
+	//Компоновка сообщений об ошибках
 
 	private ValidationErrorDTO processFieldErrors(List<FieldError> fieldErrors) {
 		ValidationErrorDTO dto = new ValidationErrorDTO();

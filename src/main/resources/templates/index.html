@@ -55,9 +55,9 @@
 			<a th:href="@{'/categories/' + ${category.id}}">
 				<span th:classappend="'categoryLabel scheme-'"></span>
 				<span class="categoryLabelText">
-					<span class="categoryTitle" th:text="${category.name}">category.name</span>
+					<span class="categoryTitle" th:text="${category.title}">category.title</span>
 				</span>
-				<img class="categoryImage img-responsive" th:src="@{'img/categories/' + ${category.name} + '-preview.jpg'}"/>
+				<img class="categoryImage img-responsive" th:src="@{'img/categories/' + ${category.title} + '-preview.jpg'}"/>
 			</a>
 		</div>
 	</div>

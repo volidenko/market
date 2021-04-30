@@ -110,56 +110,48 @@ public class Product implements Serializable {
 		Product product = (Product) o;
 		return id == product.id &&
 			available == product.available &&
+				Objects.equals(category, product.category) &&
 			Objects.equals(manufacturer, product.manufacturer) &&
 			Objects.equals(name, product.name) &&
 			Objects.equals(price, product.price) &&
-			Objects.equals(description, product.description) &&
-			Objects.equals(volume, product.volume) &&
-			Objects.equals(alcohol, product.alcohol) &&
-			Objects.equals(age, product.age);
+			Objects.equals(description, product.description);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, manufacturer, name, price, description, volume, alcohol, age, available);
+		return Objects.hash(id, name, price, available, category, manufacturer, description);
 	}
 
 	public static class Builder {
 		private Long id;
-		private Manufacturer manufacturer;
 		private String name;
 		private Double price;
-		private String description;
-		private Integer volume;
-		private Float alcohol;
-		private Integer age;
 		private boolean available = true;
+		private  Category category;
+		private Manufacturer manufacturer;
+		private String description;
 
 		public Builder() {
 		}
 
 		public Builder(Product product) {
 			id = product.id;
-			manufacturer = product.manufacturer;
 			name = product.name;
 			price = product.price;
-			description = product.description;
-			volume = product.volume;
-			alcohol = product.alcohol;
-			age = product.age;
 			available = product.available;
+			category=product.category;
+			manufacturer = product.manufacturer;
+			description = product.description;
 		}
 
 		public Product build() {
 			Product product = new Product();
 			product.id = id;
+			product.category=category;
 			product.manufacturer = manufacturer;
 			product.name = name;
 			product.price = price;
 			product.description = description;
-			product.volume = volume;
-			product.alcohol = alcohol;
-			product.age = age;
 			product.available = available;
 			return product;
 		}
@@ -169,8 +161,12 @@ public class Product implements Serializable {
 			return this;
 		}
 
-		public Builder setDistillery(Manufacturer manufacturer) {
+		public Builder setManufacturer(Manufacturer manufacturer) {
 			this.manufacturer = manufacturer;
+			return this;
+		}
+		public Builder setCategory(Category category) {
+			this.category = category;
 			return this;
 		}
 
@@ -186,21 +182,6 @@ public class Product implements Serializable {
 
 		public Builder setDescription(String description) {
 			this.description = description;
-			return this;
-		}
-
-		public Builder setVolume(Integer volume) {
-			this.volume = volume;
-			return this;
-		}
-
-		public Builder setAlcohol(Float alcohol) {
-			this.alcohol = alcohol;
-			return this;
-		}
-
-		public Builder setAge(Integer age) {
-			this.age = age;
 			return this;
 		}
 

@@ -85,7 +85,7 @@
 													</tr>
 													<tr>
 														<td align="right" style="padding-right: 7px;">на сумму:</td>
-														<td th:text="${bill.totalCost + '&nbsp;руб.'}"></td>
+														<td th:text="${bill.totalCost + '&nbsp;грн.'}"></td>
 													</tr>
 												</table>
 											</li>
@@ -111,24 +111,24 @@
 											<th:block th:each="orderedProduct : ${orderedProductsByOrderId[order.id]}">
 												<tr th:with="product=${productsById[orderedProduct.productId]}">
 													<td th:text="${product.manufacturer + ' ' + product.name}"></td>
-													<td th:text="${product.price + '&nbsp;руб.'}"></td>
+													<td th:text="${product.price + '&nbsp;грн.'}"></td>
 													<td th:text="${orderedProduct.quantity}"></td>
-													<td th:text="${(orderedProduct.quantity * product.price) + '&nbsp;руб.'}"></td>
+													<td th:text="${(orderedProduct.quantity * product.price) + '&nbsp;грн.'}"></td>
 												</tr>
 											</th:block>
 
 											<tr th:if="${order.deliveryIncluded}">
-												<td align="right" colspan="3">подитог:</td>
-												<td th:text="${order.productsCost + '&nbsp;руб.'}"></td>
+												<td align="right" colspan="3">Сумма:</td>
+												<td th:text="${order.productsCost + '&nbsp;грн.'}"></td>
 											</tr>
 											<tr th:if="${order.deliveryIncluded}">
-												<td align="right" colspan="3">доставка по Петербургу:</td>
-												<td th:text="${order.deliveryCost + '&nbsp;руб.'}"></td>
+												<td align="right" colspan="3">Доставка:</td>
+												<td th:text="${order.deliveryCost + '&nbsp;грн.'}"></td>
 											</tr>
 
 											<tr>
-												<td align="right" colspan="3">итог:</td>
-												<td th:text="${(order.productsCost + order.deliveryCost) + '&nbsp;руб.'}"></td>
+												<td align="right" colspan="3">Всего:</td>
+												<td th:text="${(order.productsCost + order.deliveryCost) + '&nbsp;грн.'}"></td>
 											</tr>
 										</table>
 									</div>

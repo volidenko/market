@@ -1,10 +1,8 @@
 package market.service.impl;
 
-import market.dao.DistilleryDAO;
+import market.dao.ManufacturerDAO;
 import market.domain.Manufacturer;
-import market.domain.Category;
 import market.service.ManufacturerService;
-import market.service.CategoryService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,66 +13,48 @@ import java.util.stream.Collectors;
 
 @Service
 public class ManufacturerServiceImpl implements ManufacturerService {
-	private final CategoryService categoryService;
-	private final DistilleryDAO distilleryDAO;
+	private final ManufacturerDAO manufacturerDAO;
 
-	public ManufacturerServiceImpl(CategoryService categoryService, DistilleryDAO distilleryDAO) {
-		this.categoryService = categoryService;
-		this.distilleryDAO = distilleryDAO;
+	public ManufacturerServiceImpl(ManufacturerDAO manufacturerDAO) {
+		this.manufacturerDAO = manufacturerDAO;
 	}
 
 	@Transactional(readOnly = true)
 	@Override
 	public List<Manufacturer> findAll() {
-		return distilleryDAO.findAll().stream()
+		return manufacturerDAO.findAll().stream()
 			.sorted(Comparator.comparing(Manufacturer::getTitle))
 			.collect(Collectors.toList());
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public List<Manufacturer> findByRegion(Category region) {
-		return distilleryDAO.findByRegionOrderByTitleAsc(region);
+	public Manufacturer findById(long manufacturerId) {
+		return manufacturerDAO.findById(manufacturerId).orElse(null);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public Manufacturer findById(long distilleryId) {
-		return distilleryDAO.findById(distilleryId).orElse(null);
-	}
-
-	@Transactional(readOnly = true)
-	@Override
-	public Manufacturer findByTitle(String title) {
-		return distilleryDAO.findByTitle(title);
-	}
+	public Manufacturer findByTitle(String manufacturerTitle) { return manufacturerDAO.findByTitle(manufacturerTitle).orElse(null);}
 
 	@Transactional
 	@Override
-	public void create(Manufacturer newManufacturer, String regionName) {
-		saveInternal(newManufacturer, regionName);
+	public void create(Manufacturer newManufacturer) {
+		manufacturerDAO.save(newManufacturer);
 	}
 
 	@Override
-	public void update(long distilleryId, Manufacturer changedManufacturer, String regionName) {
-		Optional<Manufacturer> originalDistillery = distilleryDAO.findById(distilleryId);
-		if (originalDistillery.isPresent()) {
-			changedManufacturer.setId(originalDistillery.get().getId());
-			saveInternal(changedManufacturer, regionName);
-		}
-	}
-
-	private void saveInternal(Manufacturer manufacturer, String categoryTitle) {
-		Category category = categoryService.findByTitle(categoryTitle);
-		if (category != null) {
-			manufacturer.setCategory(category);
-			distilleryDAO.save(manufacturer);
+	public void update(long manufacturerId, Manufacturer changedManufacturer) {
+		Optional<Manufacturer> originalManufacturer = manufacturerDAO.findById(manufacturerId);
+		if (originalManufacturer.isPresent()) {
+			changedManufacturer.setId(originalManufacturer.get().getId());
+			manufacturerDAO.save(changedManufacturer);
 		}
 	}
 
 	@Transactional
 	@Override
-	public void delete(long distilleryId) {
-		distilleryDAO.deleteById(distilleryId);
+	public void delete(long manufacturerId) {
+		manufacturerDAO.deleteById(manufacturerId);
 	}
 }

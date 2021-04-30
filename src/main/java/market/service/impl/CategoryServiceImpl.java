@@ -34,9 +34,7 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Category findByTitle(String categoryTitle) {
-		return categoryDAO.findByTitle(categoryTitle).orElse(null);
-	}
+	public Category findByTitle(String categoryTitle) {	return categoryDAO.findByTitle(categoryTitle).orElse(null);}
 
 	@Transactional
 	@Override

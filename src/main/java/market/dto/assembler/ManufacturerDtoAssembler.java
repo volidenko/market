@@ -1,6 +1,6 @@
 package market.dto.assembler;
 
-import market.controller.backend.DistilleryController;
+import market.controller.backend.ManufacturerController;
 import market.domain.Manufacturer;
 import market.dto.ManufacturerDTO;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
@@ -10,7 +10,7 @@ import java.util.List;
 public class ManufacturerDtoAssembler extends RepresentationModelAssemblerSupport<Manufacturer, ManufacturerDTO> {
 
 	public ManufacturerDtoAssembler() {
-		super(DistilleryController.class, ManufacturerDTO.class);
+		super(ManufacturerController.class, ManufacturerDTO.class);
 	}
 
 	@Override

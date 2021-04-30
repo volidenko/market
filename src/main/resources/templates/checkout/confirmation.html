@@ -17,7 +17,7 @@
 		<div>
 			<div class="col-md-7" style="padding-right: 20px;">
 				<p th:if="${createdOrder.deliveryIncluded}">
-					<b>Ваш заказ будет скомплектован и доставлен в течение 24 часов.</b></p>
+					<b>Ваш заказ будет скомплектован и доставлен в течение 1-2 дня.</b></p>
 				<p th:if="${!createdOrder.deliveryIncluded}">
 					<b>Ваш заказ будет скомплектован и доступен для получения в течение часа.</b></p>
 
@@ -34,7 +34,7 @@
 						<span th:text="${userAccount.name}"></span>
 						<br>
 						<span th:if="${createdOrder.deliveryIncluded}">
-						г. Санкт-Петербург<br>
+						ххх<br>
 						<span th:text="${userContacts.address}"></span>
 						<hr/>
 					</span>
@@ -54,24 +54,6 @@
 	</center>
 
 	<br>
-
-	<div aria-hidden="true" aria-labelledby="detailsModal" class="modal fade bs-modal-sm" id="detailsModal"
-		 role="dialog"
-		 tabindex="-1">
-		<div class="modal-dialog modal-sm" style="line-height:160%;">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button aria-hidden="true" class="close" data-dismiss="modal" type="button">&times;</button>
-					<h4 class="modal-title">Благодарность покупателю</h4>
-				</div>
-				<div class="modal-body">
-					<p>Финальный этап оформления заказа.</p>
-					<p>Вся информация о заказе была сохранена в базе данных, теперь она доступна покупателю в истории
-					   заказов и администрации магазина &ndash; в панели управления.</p>
-				</div>
-			</div>
-		</div>
-	</div>
 
 </content>
 </body>

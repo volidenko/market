@@ -45,14 +45,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional(readOnly = true)
 	@Override
-	public Page<Product> findByDistillery(Manufacturer manufacturer, PageRequest request) {
-		return productDAO.findByDistilleryOrderByName(manufacturer, request);
+	public Page<Product> findByManufacturer(Manufacturer manufacturer, PageRequest request) {
+		return productDAO.findByManufacturerOrderByName(manufacturer, request);
 	}
 
 	@Transactional(readOnly = true)
 	@Override
-	public Page<Product> findByRegion(Category region, PageRequest request) {
-		return productDAO.findByRegionOrderByName(region, request);
+	public Page<Product> findByCategory(Category category, PageRequest request) {
+		return productDAO.findByCategoryOrderByName(category, request);
 	}
 
 	@Transactional(readOnly = true)
@@ -83,20 +83,20 @@ public class ProductServiceImpl implements ProductService {
 
 	@Transactional
 	@Override
-	public void create(Product product, String distilleryTitle) {
-		saveInternal(product, distilleryTitle, true);
+	public void create(Product product, String manufacturerTitle) {
+		saveInternal(product, manufacturerTitle, true);
 	}
 
 	@Transactional
 	@Override
-	public void update(long productId, Product product, String distilleryTitle) {
+	public void update(long productId, Product product, String manufacturerTitle) {
 		Product original = getProduct(productId);
 		product.setId(original.getId());
-		saveInternal(product, distilleryTitle, original.isAvailable()); // keep original availability
+		saveInternal(product, manufacturerTitle, original.isAvailable()); // keep original availability
 	}
 
-	private void saveInternal(Product changed, String distilleryTitle, boolean available) {
-		Manufacturer manufacturer = manufacturerService.findByTitle(distilleryTitle);
+	private void saveInternal(Product changed, String manufacturerTitle, boolean available) {
+		Manufacturer manufacturer = manufacturerService.findByTitle(manufacturerTitle);
 		if (manufacturer != null) {
 			changed.setManufacturer(manufacturer);
 			changed.setAvailable(available);

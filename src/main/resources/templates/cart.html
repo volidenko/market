@@ -76,7 +76,7 @@
 						 width="100">
 				</td>
 				<td th:text="${product.manufacturer} + ' ' + ${product.name}"></td>
-				<td th:text="${product.price} + '&nbsp;руб.'"></td>
+				<td th:text="${product.price} + '&nbsp;грн.'"></td>
 				<td width="125">
 					<form method="put" th:object="${cartItem}">
 						<input name="productId" th:value="${product.productId}" type="hidden">
