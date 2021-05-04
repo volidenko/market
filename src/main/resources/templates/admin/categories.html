@@ -11,20 +11,21 @@
 	<h1>Управление категориями</h1>
 
 	<br>
-	<div>
+
+	<div class="table-responsive">
 		<table class="table table-small-text" width="100%">
 			<thead>
 			<tr>
 				<th>id</th>
 				<th>название</th>
-				<th></th>
+				<th width="150"></th>
 			</tr>
 			</thead>
-			<tr th:each="category : ${categories}"
-				th:with="desc=${category.title},shortDesc=${desc.length() > 100 ? #strings.substring(desc, 0, 60) : desc}">
+
+			<tr th:each="category : ${admin/categories}">
 				<td th:text="${category.id}"></td>
 				<td th:text="${category.title}"></td>
-				<td width="150">
+				<td>
 					<form method="post" th:action="@{categories/{id}/delete(id=${category.id})}">
 						<div class="btn-group btn-group-xs pull-right">
 							<a class="btn btn-xs btn-default"
@@ -36,7 +37,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="6">
+				<td colspan="5">
 					<a class="btn btn-primary btn-sm" th:href="@{categories/new}">
 						добавить категорию
 					</a>

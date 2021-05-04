@@ -7,7 +7,7 @@ import java.util.List;
 public interface ManufacturerService {
 
 	/**
-	 * @return all the distilleries sorted by title
+	 * @return all the manufacturers sorted by title
 	 */
 	List<Manufacturer> findAll();
 

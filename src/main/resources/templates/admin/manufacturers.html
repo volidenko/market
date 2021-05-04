@@ -22,7 +22,7 @@
 			</tr>
 			</thead>
 
-			<tr>
+			<tr th:each="manufacturer : ${manufacturers}">
 				<td th:text="${manufacturer.id}"></td>
 				<td th:text="${manufacturer.title}"></td>
 				<td>

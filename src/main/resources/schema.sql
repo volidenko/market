@@ -52,7 +52,7 @@ CREATE TABLE ordered_product (
 DROP TABLE IF EXISTS category;
 CREATE TABLE category (
     id bigint auto_increment NOT NULL,
-    title character varying(20) NOT NULL
+    title character varying(25) NOT NULL
 );
 
 DROP TABLE IF EXISTS manufacturer;

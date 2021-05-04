@@ -41,7 +41,7 @@ public class CategoryDTO extends RepresentationModel<CategoryDTO> {
 
 	@Override
 	public String toString() {
-		return "RegionDTO{" +
+		return "CategoryDTO{" +
 			"id=" + id +
 			", title='" + title + '\'' +
 			'}';

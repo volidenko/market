@@ -81,9 +81,9 @@ public class ProductController {
 			.collect(toList());
 		model.addAttribute("manufacturers", manufacturersDto);
 
-//		Map<String, String> regionByDistillery = distilleries.stream()
-//			.collect(toMap(Manufacturer::getTitle, d -> d.getCategory().getName()));
-//		model.addAttribute("regionByDistillery", regionByDistillery);
+		Map<String, String> mf = manufacturers.stream()
+			.collect(toMap(Manufacturer::getTitle, d -> d.getTitle()));
+		model.addAttribute("mf", mf);
 
 		return PRODUCTS_BASE;
 	}

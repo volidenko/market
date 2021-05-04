@@ -42,7 +42,7 @@ public class ManufacturerDTO extends RepresentationModel<ManufacturerDTO> {
 
 	@Override
 	public String toString() {
-		return "DistilleryDTO{" +
+		return "ManufacturerDTO{" +
 			"id=" + id +
 			", title='" + title + '\'' +
 			'}';

@@ -45,8 +45,8 @@ public class ManufacturerController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/new")
 	public String newManufacturer(Model model) {
-		model.addAttribute("manufacturer", new Manufacturer());
-		//model.addAttribute("manufacturer", manufacturerDtoAssembler.toModel(new Manufacturer()));
+		//model.addAttribute("manufacturer", new Manufacturer());
+		model.addAttribute("manufacturer", manufacturerDtoAssembler.toModel(new Manufacturer()));
 		return MANUFACTURERS_NEW;
 	}
 
@@ -62,7 +62,7 @@ public class ManufacturerController {
 		return "redirect:/" + MANUFACTURERS_BASE;
 	}
 
-	//Changing distillery
+	//Changing
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{manufacturerId}/edit")
 	public String editManufacturer(
