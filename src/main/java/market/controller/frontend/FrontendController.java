@@ -30,11 +30,11 @@ public class FrontendController {
 	 */
 	@RequestMapping(value = {"", "/", "/index"}, method = RequestMethod.GET)
 	public String index(Model model) {
-		List<CategoryDTO> regionsDto = categoryService.findAll().stream()
+		List<CategoryDTO> categoriesDto = categoryService.findAll().stream()
 			.map(categoryDTOAssembler::toModel)
 			.collect(toList());
-		model.addAttribute("regions", regionsDto);
-		model.addAttribute("selectedRegion", Category.NULL);
+		model.addAttribute("categories", categoriesDto);
+		model.addAttribute("selectedCategory", Category.NULL);
 		return "index";
 	}
 

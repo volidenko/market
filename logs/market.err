@@ -1,7 +1,0 @@
-2021-04-30 20:48:25,985 WARN  [restartedMain] o.s.b.c.c.ConfigDataEnvironment - Property 'spring.profiles' imported from location 'class path resource [application.yml]' is invalid and should be replaced with 'spring.config.activate.on-profile' [origin: class path resource [application.yml] - 36:13]
-2021-04-30 20:48:25,985 WARN  [restartedMain] o.s.b.c.c.ConfigDataEnvironment - Property 'spring.profiles' imported from location 'class path resource [application.yml]' is invalid and should be replaced with 'spring.config.activate.on-profile' [origin: class path resource [application.yml] - 19:13]
-2021-04-30 20:48:30,324 WARN  [restartedMain] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name gen
-2021-04-30 20:48:30,327 WARN  [restartedMain] o.h.b.i.InFlightMetadataCollectorImpl - HHH000069: Duplicate generator name gen
-2021-04-30 20:48:31,925 WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2021-04-30 20:50:05,991 WARN  [http-nio-8080-exec-2] m.s.CustomAuthenticationSuccessHandler - Account #1 has no cart, this shall never happen
-2021-05-01 00:55:06,799 WARN  [HikariPool-1 housekeeper] c.z.h.p.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=3h34m29s523ms389µs700ns).
